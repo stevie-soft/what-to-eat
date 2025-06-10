@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.WhatToEatController">
+<VBox fx:id="rootContainer" alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.WhatToEatController">
    <children>
       <TabPane prefHeight="523.0" prefWidth="957.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
@@ -53,7 +53,7 @@
                                     <VBox prefHeight="90.0" prefWidth="300.0">
                                        <children>
                                           <Label text="Étel kategóriája" />
-                                          <ChoiceBox prefHeight="25.0" prefWidth="333.0" />
+                                          <ChoiceBox fx:id="mealCategoryChoiceBox" prefHeight="25.0" prefWidth="333.0" />
                                        </children>
                                        <padding>
                                           <Insets right="10.0" />
@@ -74,8 +74,8 @@
                                  <children>
                                     <VBox prefHeight="90.0" prefWidth="300.0">
                                        <children>
-                                          <Label text="Étel kívánt fogyasztási gyakorisága" />
-                                          <ChoiceBox prefHeight="25.0" prefWidth="333.0" />
+                                          <Label text="Étel fogyasztási gyakorisága (X naponta)" />
+                                          <TextField prefHeight="25.0" prefWidth="214.0" />
                                        </children>
                                        <padding>
                                           <Insets right="10.0" />
@@ -83,7 +83,7 @@
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="300.0">
                                        <children>
-                                          <Label text="Étel átlagos költsége (Ft)" />
+                                          <Label text="Étel átlagos költsége (X Ft)" />
                                           <TextField prefHeight="25.0" prefWidth="214.0" />
                                        </children>
                                        <HBox.margin>
