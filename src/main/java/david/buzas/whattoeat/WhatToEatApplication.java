@@ -13,7 +13,7 @@ public class WhatToEatApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(WhatToEatApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setFullScreen(true);
-        stage.setTitle("Hello!");
+        stage.setTitle("Mit együnk ma?");
         stage.setScene(scene);
         stage.show();
     }
