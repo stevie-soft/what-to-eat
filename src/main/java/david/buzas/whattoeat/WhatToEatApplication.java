@@ -12,7 +12,7 @@ public class WhatToEatApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(WhatToEatApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
         stage.setTitle("Mit együnk ma?");
         stage.setScene(scene);
         stage.show();
