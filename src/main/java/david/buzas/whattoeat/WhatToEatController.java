@@ -3,7 +3,7 @@ package david.buzas.whattoeat;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class WhatToEatController {
     @FXML
     private Label welcomeText;
 
