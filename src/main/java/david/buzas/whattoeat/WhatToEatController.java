@@ -13,13 +13,21 @@ import java.net.URL;
 
 public class WhatToEatController {
     @FXML
-    ChoiceBox<MealCategory> mealCategoryChoiceBox;
-
-    @FXML
     VBox rootContainer;
 
     @FXML
+    ChoiceBox<MealCategory> mealCategoryChoiceBox;
+
+    @FXML
+    ChoiceBox<MealType> mealTypeChoiceBox;
+
+    @FXML
     private void initialize() {
+        this.initializeMealCategoryChoiceBox();
+        this.initializeMealTypeChoiceBox();
+    }
+
+    private void initializeMealCategoryChoiceBox() {
         URL resourceUrl = WhatToEatApplication.class.getResource("meal-categories.json");
         MealCategoryRepository mealCategoryRepository;
 
@@ -46,6 +54,35 @@ public class WhatToEatController {
             }
         });
         this.mealCategoryChoiceBox.setItems(FXCollections.observableList(mealCategoryRepository.getAll()));
+    }
+
+    private void initializeMealTypeChoiceBox() {
+        URL resourceUrl = WhatToEatApplication.class.getResource("meal-types.json");
+        MealTypeRepository mealTypeRepository;
+
+        try {
+            if (resourceUrl == null) {
+                throw new IOException("Cannot read meal categories: Invalid resources URL");
+            }
+
+            mealTypeRepository = new MealTypeRepository(resourceUrl);
+        } catch (URISyntaxException | IOException e) {
+            this.fail(e.getMessage());
+            return;
+        }
+
+        this.mealTypeChoiceBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(MealType mealType) {
+                return mealType != null ? mealType.getDisplayName() : "Válassz egyet...";
+            }
+
+            @Override
+            public MealType fromString(String s) {
+                return null;
+            }
+        });
+        this.mealTypeChoiceBox.setItems(FXCollections.observableList(mealTypeRepository.getAll()));
     }
 
     private void fail(String message) {

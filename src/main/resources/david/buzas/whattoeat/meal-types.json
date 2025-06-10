@@ -1,0 +1,26 @@
+[
+  {
+    "key": "vegetables",
+    "displayName": "Zöldség"
+  },
+  {
+    "key": "fruits",
+    "displayName": "Gyümölcs"
+  },
+  {
+    "key": "plants",
+    "displayName": "Növényi"
+  },
+  {
+    "key": "chicken",
+    "displayName": "Szárnyas"
+  },
+  {
+    "key": "beef",
+    "displayName": "Marha"
+  },
+  {
+    "key": "pig",
+    "displayName": "Sertés"
+  }
+]
