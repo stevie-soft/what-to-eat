@@ -35,12 +35,22 @@ public class WhatToEatController {
     @FXML
     ChoiceBox<MealType> mealTypeChoiceBox;
 
+    @FXML
+    Button addButton;
+
+    @FXML
+    Button updateButton;
+
     Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
     Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
     Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
 
+    Meal selectedMeal;
+
     @FXML
     private void initialize() {
+        this.selectedMeal = null;
+        this.updateButton.setDisable(true);
         this.initializeFavoriteMealsList();
         this.initializeMealCategoryChoiceBox();
         this.initializeMealTypeChoiceBox();
@@ -55,7 +65,53 @@ public class WhatToEatController {
             }
         });
 
+        this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    selectedMeal = newValue;
+                    loadMeal(selectedMeal);
+                    this.updateButton.setDisable(selectedMeal == null);
+                }
+        );
+
         this.syncMeals();
+    }
+
+    private void loadMeal(Meal meal) {
+        if (meal == null) {
+            return;
+        }
+
+        this.mealTitleTextField.setText(meal.getTitle());
+
+        MealCategory mealCategory = null;
+
+        try {
+            mealCategory = this.mealCategoryRepository.getBy(MealCategory::getKey, meal.getCategoryKey());
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+
+        if (mealCategory != null) {
+            this.mealCategoryChoiceBox.setValue(mealCategory);
+        }
+
+        MealType mealType = null;
+
+        try {
+            mealType = this.mealTypeRepository.getBy(MealType::getKey, meal.getTypeKey());
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+
+        if (mealType != null) {
+            this.mealTypeChoiceBox.setValue(mealType);
+        }
+
+        int mealConsumptionFrequencyDays = meal.getConsumptionFrequencyDays();
+        this.mealConsuptionFrequencyDaysTextField.setText(String.valueOf(mealConsumptionFrequencyDays));
+
+        int averageCostForint = meal.getAverageCostForint();
+        this.mealAverageCostForintTextField.setText(String.valueOf(averageCostForint));
     }
 
     private void syncMeals() {
@@ -120,20 +176,39 @@ public class WhatToEatController {
     }
 
     @FXML
-    private void saveMeal()  {
+    private void onAddMeal()  {
+        Meal meal = buildMealByFormValues();
+
+        try {
+            this.mealRepository.add(meal);
+            this.syncMeals();
+            this.favoriteMealsListView.getSelectionModel().select(meal);
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onUpdateMeal()  {
+        Meal meal = buildMealByFormValues();
+        meal.setUuid(selectedMeal.getUuid());
+        try {
+            this.mealRepository.update(meal);
+            this.syncMeals();
+            this.favoriteMealsListView.getSelectionModel().select(meal);
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+    }
+
+    private Meal buildMealByFormValues() {
         Meal meal = new Meal();
         meal.setTitle(this.mealTitleTextField.getText());
         meal.setCategoryKey(this.mealCategoryChoiceBox.getValue().getKey());
         meal.setTypeKey(this.mealTypeChoiceBox.getValue().getKey());
         meal.setConsumptionFrequencyDays(Integer.parseInt(this.mealConsuptionFrequencyDaysTextField.getText()));
         meal.setAverageCostForint(Integer.parseInt(this.mealAverageCostForintTextField.getText()));
-
-        try {
-            this.mealRepository.add(meal);
-            this.syncMeals();
-        } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
-        }
+        return meal;
     }
 
     private void fatal(String message) {
