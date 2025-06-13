@@ -85,12 +85,25 @@
                               </Separator>
                <HBox prefHeight="23.0" prefWidth="631.0">
                   <children>
-                                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddMeal" text="Hozzáad">
-                        <HBox.margin>
-                           <Insets right="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateMeal" text="Frissít" />
+                     <HBox prefHeight="25.0" prefWidth="286.0" HBox.hgrow="ALWAYS">
+                        <children>
+                                          <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddMeal" text="Hozzáad">
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin>
+                           </Button>
+                           <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateMeal" text="Frissít">
+                              <HBox.margin>
+                                 <Insets right="40.0" />
+                              </HBox.margin>
+                           </Button>
+                        </children>
+                     </HBox>
+                     <HBox alignment="TOP_RIGHT" prefHeight="25.0" prefWidth="294.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Button fx:id="removeButton" mnemonicParsing="false" onAction="#onRemoveMeal" text="Töröl" textFill="#cd0000" />
+                        </children>
+                     </HBox>
                   </children>
                </HBox>
                            <padding>

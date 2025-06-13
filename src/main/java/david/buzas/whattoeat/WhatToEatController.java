@@ -41,6 +41,9 @@ public class WhatToEatController {
     @FXML
     Button updateButton;
 
+    @FXML
+    Button removeButton;
+
     Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
     Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
     Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
@@ -201,6 +204,19 @@ public class WhatToEatController {
         }
     }
 
+    @FXML
+    private void onRemoveMeal() {
+        try {
+            this.mealRepository.remove(selectedMeal);
+            this.syncMeals();
+            this.favoriteMealsListView.getSelectionModel().select(null);
+            clearForm();
+            selectedMeal = null;
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+    }
+
     private Meal buildMealByFormValues() {
         Meal meal = new Meal();
         meal.setTitle(this.mealTitleTextField.getText());
@@ -209,6 +225,14 @@ public class WhatToEatController {
         meal.setConsumptionFrequencyDays(Integer.parseInt(this.mealConsuptionFrequencyDaysTextField.getText()));
         meal.setAverageCostForint(Integer.parseInt(this.mealAverageCostForintTextField.getText()));
         return meal;
+    }
+
+    private void clearForm() {
+        this.mealTitleTextField.setText(null);
+        this.mealCategoryChoiceBox.setValue(null);
+        this.mealTypeChoiceBox.setValue(null);
+        this.mealConsuptionFrequencyDaysTextField.setText(null);
+        this.mealAverageCostForintTextField.setText(null);
     }
 
     private void fatal(String message) {
