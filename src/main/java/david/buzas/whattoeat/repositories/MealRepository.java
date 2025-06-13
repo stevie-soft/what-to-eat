@@ -6,7 +6,7 @@ import david.buzas.whattoeat.itemmanagement.JsonFileItemManager;
 
 public class MealRepository extends ItemRepository<Meal> {
 
-    public MealRepository() {
-        super(Meal.class, new JsonFileItemManager<>(Meal.class, "user-meals.json"));
+    public MealRepository(String filePathRaw) {
+        super(Meal.class, new JsonFileItemManager<>(Meal.class, filePathRaw));
     }
 }

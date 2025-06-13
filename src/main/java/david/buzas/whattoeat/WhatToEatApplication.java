@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WhatToEatApplication extends Application {
-    public static Repository<Meal> mealRepository = new MealRepository();
-    public static Repository<MealCategory> mealCategoryRepository = new MealCategoryRepository();
-    public static Repository<MealType> mealTypeRepository = new MealTypeRepository();
+    public static Repository<Meal> mealRepository = new MealRepository("user-meals.json");
+    public static Repository<MealCategory> mealCategoryRepository = new MealCategoryRepository("meal-categories.json");
+    public static Repository<MealType> mealTypeRepository = new MealTypeRepository("meal-types.json");
 
     @Override
     public void start(Stage stage) throws IOException {
