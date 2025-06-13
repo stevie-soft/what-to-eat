@@ -18,6 +18,9 @@
           <Tab text="Mit egyek ma?">
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="804.0" />
           </Tab>
+            <Tab text="Elfogyasztott ételek">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </Tab>
           <Tab text="Kedvelt ételek">
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <ListView fx:id="favoriteMealsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="467.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -87,8 +90,5 @@
                         </VBox>
                      </AnchorPane>
           </Tab>
-            <Tab text="Elfogyasztott ételek">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </Tab>
       </TabPane>
 </VBox>
