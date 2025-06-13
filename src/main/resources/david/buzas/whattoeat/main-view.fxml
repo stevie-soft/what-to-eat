@@ -20,12 +20,12 @@
           </Tab>
           <Tab text="Kedvelt ételek">
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="467.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="favoriteMealsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="467.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <VBox layoutX="248.0" layoutY="-2.0" prefHeight="471.0" prefWidth="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                               <HBox prefHeight="50.0" prefWidth="631.0">
                                     <VBox prefHeight="100.0" prefWidth="300.0">
                                           <Label text="Étel neve" />
-                                          <TextField prefHeight="25.0" prefWidth="214.0" />
+                                          <TextField fx:id="mealTitleTextField" prefHeight="25.0" prefWidth="214.0" />
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -56,14 +56,14 @@
                               <HBox prefHeight="60.0" prefWidth="631.0">
                                     <VBox prefHeight="90.0" prefWidth="300.0">
                                           <Label text="Étel fogyasztási gyakorisága (X naponta)" />
-                                          <TextField prefHeight="25.0" prefWidth="214.0" />
+                                          <TextField fx:id="mealConsuptionFrequencyDaysTextField" prefHeight="25.0" prefWidth="214.0" />
                                        <padding>
                                           <Insets right="10.0" />
                                        </padding>
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="300.0">
                                           <Label text="Étel átlagos költsége (X Ft)" />
-                                          <TextField prefHeight="25.0" prefWidth="214.0" />
+                                          <TextField fx:id="mealAverageCostForintTextField" prefHeight="25.0" prefWidth="214.0" />
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -80,7 +80,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </Separator>
-                              <Button mnemonicParsing="false" text="Mentés" />
+                              <Button mnemonicParsing="false" onAction="#saveMeal" text="Mentés" />
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>

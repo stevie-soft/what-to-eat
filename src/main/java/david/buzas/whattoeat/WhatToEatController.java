@@ -2,14 +2,15 @@ package david.buzas.whattoeat;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WhatToEatController {
     @FXML
@@ -19,26 +20,73 @@ public class WhatToEatController {
     ChoiceBox<MealCategory> mealCategoryChoiceBox;
 
     @FXML
+    TextField mealTitleTextField;
+
+    @FXML
+    TextField mealConsuptionFrequencyDaysTextField;
+
+    @FXML
+    TextField mealAverageCostForintTextField;
+
+    @FXML
+    ListView<Meal> favoriteMealsListView;
+
+    @FXML
     ChoiceBox<MealType> mealTypeChoiceBox;
+
+    MealRepository mealRepository;
 
     @FXML
     private void initialize() {
+        this.mealRepository = new MealRepository();
+        this.initializeFavoriteMealsList();
         this.initializeMealCategoryChoiceBox();
         this.initializeMealTypeChoiceBox();
     }
 
+    private void initializeFavoriteMealsList() {
+        this.favoriteMealsListView.setCellFactory(mealListView -> new ListCell<>() {
+            @Override
+            protected void updateItem(Meal meal, boolean empty) {
+                super.updateItem(meal, empty);
+                this.setText(empty || meal == null ? null : meal.getTitle());
+            }
+        });
+
+        this.syncMeals();
+    }
+
+    private void syncMeals() {
+        try {
+            this.mealRepository.loadFromFile("meals.json");
+        } catch (IOException e) {
+            this.fatal(e.getMessage());
+        }
+
+        List<Meal> meals = new ArrayList<>();
+
+        try {
+            meals = this.mealRepository.getAll();
+        } catch (IOException e) {
+            this.fatal(e.getMessage());
+        }
+
+        this.favoriteMealsListView.setItems(FXCollections.observableList(meals));
+    }
+
     private void initializeMealCategoryChoiceBox() {
-        URL resourceUrl = WhatToEatApplication.class.getResource("meal-categories.json");
+        String fileNameRaw = "meal-categories.json";
+        URL resourceUrl = WhatToEatApplication.class.getResource(fileNameRaw);
         MealCategoryRepository mealCategoryRepository;
 
         try {
             if (resourceUrl == null) {
-                throw new IOException("Cannot read meal categories: Invalid resources URL");
+                throw new IOException(String.format("Cannot read meal categories: Invalid resource '%s'", fileNameRaw));
             }
 
             mealCategoryRepository = new MealCategoryRepository(resourceUrl);
         } catch (URISyntaxException | IOException e) {
-            this.fail(e.getMessage());
+            this.fatal(e.getMessage());
             return;
         }
 
@@ -57,17 +105,18 @@ public class WhatToEatController {
     }
 
     private void initializeMealTypeChoiceBox() {
-        URL resourceUrl = WhatToEatApplication.class.getResource("meal-types.json");
+        String fileNameRaw = "meal-types.json";
+        URL resourceUrl = WhatToEatApplication.class.getResource(fileNameRaw);
         MealTypeRepository mealTypeRepository;
 
         try {
             if (resourceUrl == null) {
-                throw new IOException("Cannot read meal categories: Invalid resources URL");
+                throw new IOException(String.format("Cannot read meal types: Invalid resource '%s'", fileNameRaw));
             }
 
             mealTypeRepository = new MealTypeRepository(resourceUrl);
         } catch (URISyntaxException | IOException e) {
-            this.fail(e.getMessage());
+            this.fatal(e.getMessage());
             return;
         }
 
@@ -85,8 +134,26 @@ public class WhatToEatController {
         this.mealTypeChoiceBox.setItems(FXCollections.observableList(mealTypeRepository.getAll()));
     }
 
-    private void fail(String message) {
-        this.rootContainer.getChildren().clear();
-        this.rootContainer.getChildren().add(new Label("Hiba: " + message));
+    @FXML
+    private void saveMeal()  {
+        Meal meal = new Meal();
+        meal.setTitle(this.mealTitleTextField.getText());
+        meal.setCategoryKey(this.mealCategoryChoiceBox.getValue().getKey());
+        meal.setTypeKey(this.mealTypeChoiceBox.getValue().getKey());
+        meal.setConsumptionFrequencyDays(Integer.parseInt(this.mealConsuptionFrequencyDaysTextField.getText()));
+        meal.setAverageCostForint(Integer.parseInt(this.mealAverageCostForintTextField.getText()));
+
+        try {
+            this.mealRepository.add(meal);
+            this.syncMeals();
+        } catch (IOException e) {
+            this.fatal(e.getMessage());
+        }
     }
+
+    private void fatal(String message) {
+        this.rootContainer.getChildren().clear();
+        this.rootContainer.getChildren().add(new Label("Végzetes hiba: " + message));
+    }
+
 }
