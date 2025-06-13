@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class ItemRepository<TItem extends Entity> implements Repository<TItem> {
     private final Class<TItem> itemClass;
@@ -31,18 +32,26 @@ public class ItemRepository<TItem extends Entity> implements Repository<TItem> {
     }
 
     public TItem getByUuid(UUID uuid) throws Repository.OperationException {
-        Optional<TItem> item = this.findByUuid(uuid);
+        return this.getBy(TItem::getUuid, uuid);
+    }
+
+    public Optional<TItem> findByUuid(UUID uuid) throws Repository.OperationException {
+        return this.findBy(TItem::getUuid, uuid);
+    }
+
+    public <TReturnType> TItem getBy(Function<TItem, TReturnType> getter, TReturnType value) throws OperationException {
+        Optional<TItem> item = this.findBy(getter, value);
 
         if (item.isEmpty()) {
-            throw new Repository.NotFoundByUuidException(this.itemClass, uuid);
+            throw new Repository.OperationException(this.itemClass, "get", String.format("not found by '%s'", value));
         }
 
         return item.get();
     }
 
-    public Optional<TItem> findByUuid(UUID uuid) throws Repository.OperationException {
+    public <TReturnType> Optional<TItem> findBy(Function<TItem, TReturnType> getter, TReturnType value) throws OperationException {
         return this.getAll().stream()
-                .filter(item -> item.getUuid().equals(uuid))
+                .filter(item -> getter.apply(item).equals(value))
                 .findFirst();
     }
 
