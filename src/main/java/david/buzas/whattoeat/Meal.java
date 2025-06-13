@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class Meal {
+public class Meal implements Entity {
     private UUID uuid;
     private String title;
     private String categoryKey;

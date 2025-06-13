@@ -34,11 +34,10 @@ public class WhatToEatController {
     @FXML
     ChoiceBox<MealType> mealTypeChoiceBox;
 
-    MealRepository mealRepository;
+    Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
 
     @FXML
     private void initialize() {
-        this.mealRepository = new MealRepository();
         this.initializeFavoriteMealsList();
         this.initializeMealCategoryChoiceBox();
         this.initializeMealTypeChoiceBox();
@@ -61,7 +60,7 @@ public class WhatToEatController {
 
         try {
             meals = this.mealRepository.getAll();
-        } catch (MealRepository.ReadOperationException e) {
+        } catch (Repository.OperationException e) {
             this.fatal(e.getMessage());
         }
 
@@ -140,7 +139,7 @@ public class WhatToEatController {
         try {
             this.mealRepository.add(meal);
             this.syncMeals();
-        } catch (MealRepository.AddOperationException e) {
+        } catch (Repository.OperationException e) {
             this.fatal(e.getMessage());
         }
     }
