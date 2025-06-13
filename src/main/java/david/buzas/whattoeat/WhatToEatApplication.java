@@ -1,5 +1,8 @@
 package david.buzas.whattoeat;
 
+import david.buzas.whattoeat.entities.Meal;
+import david.buzas.whattoeat.repositories.MealRepository;
+import david.buzas.whattoeat.repositories.Repository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,8 +1,9 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.repositories;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import david.buzas.whattoeat.entities.MealCategory;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

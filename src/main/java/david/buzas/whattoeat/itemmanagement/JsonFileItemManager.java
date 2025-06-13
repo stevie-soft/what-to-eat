@@ -1,4 +1,4 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.itemmanagement;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +18,7 @@ public class JsonFileItemManager<TItem> implements ItemManager<TItem> {
     private final ObjectMapper mapper;
     private final JavaType typeRef;
 
-    JsonFileItemManager(Class<TItem> itemClass, String filePathRaw) {
+    public JsonFileItemManager(Class<TItem> itemClass, String filePathRaw) {
         this.filePath = Path.of(filePathRaw);
         URI fileUri = this.filePath.toUri();
         this.file = new File(fileUri);

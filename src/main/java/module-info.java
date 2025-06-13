@@ -12,4 +12,10 @@ module david.buzas.whattoeat {
 
     opens david.buzas.whattoeat to javafx.fxml;
     exports david.buzas.whattoeat;
+    exports david.buzas.whattoeat.entities;
+    opens david.buzas.whattoeat.entities to javafx.fxml;
+    exports david.buzas.whattoeat.itemmanagement;
+    opens david.buzas.whattoeat.itemmanagement to javafx.fxml;
+    exports david.buzas.whattoeat.repositories;
+    opens david.buzas.whattoeat.repositories to javafx.fxml;
 }

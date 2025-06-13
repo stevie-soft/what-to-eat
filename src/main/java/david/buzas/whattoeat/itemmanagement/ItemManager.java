@@ -1,4 +1,4 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.itemmanagement;
 
 import java.io.IOException;
 import java.util.List;

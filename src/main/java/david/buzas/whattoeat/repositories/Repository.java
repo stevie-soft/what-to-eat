@@ -1,4 +1,6 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.repositories;
+
+import david.buzas.whattoeat.entities.Entity;
 
 import java.util.List;
 import java.util.Optional;

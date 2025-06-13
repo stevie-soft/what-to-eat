@@ -1,4 +1,4 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.entities;
 
 import lombok.Data;
 

@@ -1,4 +1,7 @@
-package david.buzas.whattoeat;
+package david.buzas.whattoeat.itemmanagement;
+
+import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.entities.Entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
