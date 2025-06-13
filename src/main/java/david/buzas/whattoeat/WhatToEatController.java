@@ -3,7 +3,6 @@ package david.buzas.whattoeat;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
-import david.buzas.whattoeat.repositories.MealCategoryRepository;
 import david.buzas.whattoeat.repositories.MealTypeRepository;
 import david.buzas.whattoeat.repositories.Repository;
 import javafx.collections.FXCollections;
@@ -41,6 +40,7 @@ public class WhatToEatController {
     ChoiceBox<MealType> mealTypeChoiceBox;
 
     Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
+    Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
 
     @FXML
     private void initialize() {
@@ -74,21 +74,6 @@ public class WhatToEatController {
     }
 
     private void initializeMealCategoryChoiceBox() {
-        String fileNameRaw = "meal-categories.json";
-        URL resourceUrl = WhatToEatApplication.class.getResource(fileNameRaw);
-        MealCategoryRepository mealCategoryRepository;
-
-        try {
-            if (resourceUrl == null) {
-                throw new IOException(String.format("Cannot read meal categories: Invalid resource '%s'", fileNameRaw));
-            }
-
-            mealCategoryRepository = new MealCategoryRepository(resourceUrl);
-        } catch (URISyntaxException | IOException e) {
-            this.fatal(e.getMessage());
-            return;
-        }
-
         this.mealCategoryChoiceBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(MealCategory mealCategory) {
@@ -100,7 +85,17 @@ public class WhatToEatController {
                 return null;
             }
         });
-        this.mealCategoryChoiceBox.setItems(FXCollections.observableList(mealCategoryRepository.getAll()));
+
+        List<MealCategory> mealCategories = new ArrayList<>();
+
+        try {
+            mealCategories = this.mealCategoryRepository.getAll();
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+
+
+        this.mealCategoryChoiceBox.setItems(FXCollections.observableList(mealCategories));
     }
 
     private void initializeMealTypeChoiceBox() {
