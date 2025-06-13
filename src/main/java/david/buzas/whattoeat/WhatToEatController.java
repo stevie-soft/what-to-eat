@@ -147,7 +147,6 @@ public class WhatToEatController {
             this.fatal(e.getMessage());
         }
 
-
         this.mealCategoryChoiceBox.setItems(FXCollections.observableList(mealCategories));
     }
 
@@ -192,6 +191,7 @@ public class WhatToEatController {
     private void onUpdateMeal()  {
         Meal meal = buildMealByFormValues();
         meal.setUuid(selectedMeal.getUuid());
+
         try {
             this.mealRepository.update(meal);
             this.syncMeals();
