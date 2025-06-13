@@ -54,6 +54,7 @@ public class WhatToEatController {
     private void initialize() {
         this.selectedMeal = null;
         this.updateButton.setDisable(true);
+        this.removeButton.setDisable(true);
         this.initializeFavoriteMealsList();
         this.initializeMealCategoryChoiceBox();
         this.initializeMealTypeChoiceBox();
@@ -73,6 +74,7 @@ public class WhatToEatController {
                     selectedMeal = newValue;
                     loadMeal(selectedMeal);
                     this.updateButton.setDisable(selectedMeal == null);
+                    this.removeButton.setDisable(selectedMeal == null);
                 }
         );
 
