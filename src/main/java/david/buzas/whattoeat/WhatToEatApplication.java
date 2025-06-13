@@ -2,8 +2,10 @@ package david.buzas.whattoeat;
 
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
+import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.MealCategoryRepository;
 import david.buzas.whattoeat.repositories.MealRepository;
+import david.buzas.whattoeat.repositories.MealTypeRepository;
 import david.buzas.whattoeat.repositories.Repository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import java.io.IOException;
 public class WhatToEatApplication extends Application {
     public static Repository<Meal> mealRepository = new MealRepository();
     public static Repository<MealCategory> mealCategoryRepository = new MealCategoryRepository();
+    public static Repository<MealType> mealTypeRepository = new MealTypeRepository();
 
     @Override
     public void start(Stage stage) throws IOException {

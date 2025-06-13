@@ -3,7 +3,6 @@ package david.buzas.whattoeat;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
-import david.buzas.whattoeat.repositories.MealTypeRepository;
 import david.buzas.whattoeat.repositories.Repository;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,9 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +37,7 @@ public class WhatToEatController {
 
     Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
     Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
+    Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
 
     @FXML
     private void initialize() {
@@ -99,21 +96,6 @@ public class WhatToEatController {
     }
 
     private void initializeMealTypeChoiceBox() {
-        String fileNameRaw = "meal-types.json";
-        URL resourceUrl = WhatToEatApplication.class.getResource(fileNameRaw);
-        MealTypeRepository mealTypeRepository;
-
-        try {
-            if (resourceUrl == null) {
-                throw new IOException(String.format("Cannot read meal types: Invalid resource '%s'", fileNameRaw));
-            }
-
-            mealTypeRepository = new MealTypeRepository(resourceUrl);
-        } catch (URISyntaxException | IOException e) {
-            this.fatal(e.getMessage());
-            return;
-        }
-
         this.mealTypeChoiceBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(MealType mealType) {
@@ -125,7 +107,16 @@ public class WhatToEatController {
                 return null;
             }
         });
-        this.mealTypeChoiceBox.setItems(FXCollections.observableList(mealTypeRepository.getAll()));
+
+        List<MealType> mealTypes = new ArrayList<>();
+
+        try {
+            mealTypes = this.mealTypeRepository.getAll();
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
+        }
+
+        this.mealTypeChoiceBox.setItems(FXCollections.observableList(mealTypes));
     }
 
     @FXML

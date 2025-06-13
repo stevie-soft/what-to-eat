@@ -1,0 +1,32 @@
+[
+  {
+    "uuid": "8f0135a4-76da-43be-8612-a2bc5783d440",
+    "key": "vegetables",
+    "displayName": "Zöldség"
+  },
+  {
+    "uuid": "a1e52a70-26a9-49a7-9758-fe1040577bfc",
+    "key": "fruits",
+    "displayName": "Gyümölcs"
+  },
+  {
+    "uuid": "266013ef-1f5f-4f01-9363-b0d156911a31",
+    "key": "plants",
+    "displayName": "Növényi"
+  },
+  {
+    "uuid": "25aff03b-6078-4440-bf50-a2d94ba556f0",
+    "key": "chicken",
+    "displayName": "Szárnyas"
+  },
+  {
+    "uuid": "0200979b-8fd2-4416-a2d2-59991e610af2",
+    "key": "beef",
+    "displayName": "Marha"
+  },
+  {
+    "uuid": "d4ed624b-ad34-4f72-b681-821fcd882930",
+    "key": "pig",
+    "displayName": "Sertés"
+  }
+]
