@@ -57,17 +57,11 @@ public class WhatToEatController {
     }
 
     private void syncMeals() {
-        try {
-            this.mealRepository.loadFromFile("meals.json");
-        } catch (IOException e) {
-            this.fatal(e.getMessage());
-        }
-
         List<Meal> meals = new ArrayList<>();
 
         try {
             meals = this.mealRepository.getAll();
-        } catch (IOException e) {
+        } catch (MealRepository.ReadOperationException e) {
             this.fatal(e.getMessage());
         }
 
@@ -146,7 +140,7 @@ public class WhatToEatController {
         try {
             this.mealRepository.add(meal);
             this.syncMeals();
-        } catch (IOException e) {
+        } catch (MealRepository.AddOperationException e) {
             this.fatal(e.getMessage());
         }
     }
