@@ -12,6 +12,7 @@ import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class WhatToEatController {
     @FXML
@@ -208,14 +209,30 @@ public class WhatToEatController {
 
     @FXML
     private void onRemoveMeal() {
-        try {
-            this.mealRepository.remove(selectedMeal);
-            this.syncMeals();
-            this.favoriteMealsListView.getSelectionModel().select(null);
-            clearForm();
-            selectedMeal = null;
-        } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Törlés");
+        alert.setHeaderText("Visszavonhatatlan műveletre készülsz!");
+        alert.setContentText(String.format(
+                "Biztosan ki szeretnéd törölni a következő elemet: '%s'?",
+                selectedMeal.getTitle()
+        ));
+
+        Optional<ButtonType> buttonType = alert.showAndWait();
+
+        if (buttonType.isEmpty()) {
+            return;
+        }
+
+        if (buttonType.get() == ButtonType.OK) {
+            try {
+                this.mealRepository.remove(selectedMeal);
+                this.syncMeals();
+                this.favoriteMealsListView.getSelectionModel().select(null);
+                clearForm();
+                selectedMeal = null;
+            } catch (Repository.OperationException e) {
+                this.fatal(e.getMessage());
+            }
         }
     }
 
