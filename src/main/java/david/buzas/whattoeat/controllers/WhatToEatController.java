@@ -143,7 +143,7 @@ public class WhatToEatController {
 
     @FXML
     private void onRemoveMeal() {
-        Alert dialog = this.buildDeleteConfirmationDialog();
+        Alert dialog = new DeleteConfirmationDialog(this.model.selectedMealProperty.get());
         Optional<ButtonType> userSelection = dialog.showAndWait();
 
         if (userSelection.isEmpty()) {
@@ -161,22 +161,8 @@ public class WhatToEatController {
         }
     }
 
-    private Alert buildDeleteConfirmationDialog() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-        alert.setTitle("Törlés");
-        alert.setHeaderText("Visszavonhatatlan műveletre készülsz!");
-        alert.setContentText(String.format(
-                "Biztosan ki szeretnéd törölni a következő elemet: '%s'?",
-                this.model.selectedMealProperty.get().getTitle()
-        ));
-
-        return alert;
-    }
-
     private void fatal(String message) {
-        this.rootContainer.getChildren().clear();
-        this.rootContainer.getChildren().add(new Label("Végzetes hiba: " + message));
+        new ErrorAlert(message).showAndWait();
     }
 
 }
