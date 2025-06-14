@@ -1,5 +1,5 @@
 ### User files ###
-user-meals.json
+user-*.json
 
 ### Maven build ###
 target/

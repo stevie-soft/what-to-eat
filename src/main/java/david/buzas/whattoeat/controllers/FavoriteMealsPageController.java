@@ -46,10 +46,10 @@ public class FavoriteMealsPageController {
         this.applyCustomFieldConfigurations();
 
         this.favoriteMealsListView.itemsProperty().bind(this.model.mealsProperty);
-        this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
                 this.model.selectedMealProperty.set(newValue)
         );
-        this.model.selectedMealProperty.addListener((observable, oldValue, newValue) -> {
+        this.model.selectedMealProperty.addListener((_, _, newValue) -> {
             this.favoriteMealsListView.getSelectionModel().select(newValue);
 
             try {
@@ -108,6 +108,18 @@ public class FavoriteMealsPageController {
                 return null;
             }
         });
+
+        this.mealConsuptionFrequencyDaysTextField.textProperty().addListener((_, _, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*")) {
+                mealConsuptionFrequencyDaysTextField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+
+        this.mealAverageCostForintTextField.textProperty().addListener((_, _, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*")) {
+                mealAverageCostForintTextField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
     }
 
     @FXML
@@ -130,7 +142,7 @@ public class FavoriteMealsPageController {
 
     @FXML
     private void onRemoveMeal() {
-        Alert dialog = new DeleteConfirmationDialog(this.model.selectedMealProperty.get());
+        Alert dialog = new DeleteConfirmationDialog(this.model.selectedMealProperty.get().getTitle());
         Optional<ButtonType> userSelection = dialog.showAndWait();
 
         if (userSelection.isEmpty()) {

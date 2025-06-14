@@ -1,13 +1,11 @@
 package david.buzas.whattoeat.repositories;
 
 import david.buzas.whattoeat.entities.Entity;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public interface Repository<TEntity extends Entity> {
     class OperationException extends Exception {
@@ -60,4 +58,5 @@ public interface Repository<TEntity extends Entity> {
     void add(TEntity entity) throws OperationException;
     void update(TEntity entity) throws OperationException;
     void remove(TEntity entity) throws OperationException;
+    <TReturnType> void removeManyBy(Function<TEntity, TReturnType> getter, TReturnType value) throws OperationException;
 }

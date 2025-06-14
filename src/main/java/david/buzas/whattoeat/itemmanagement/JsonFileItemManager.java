@@ -3,6 +3,7 @@ package david.buzas.whattoeat.itemmanagement;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class JsonFileItemManager<TItem> implements ItemManager<TItem> {
         URI fileUri = this.filePath.toUri();
         this.file = new File(fileUri);
         this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new JavaTimeModule());
         TypeFactory typeFactory = this.mapper.getTypeFactory();
         this.typeRef = typeFactory.constructCollectionType(List.class, itemClass);
     }

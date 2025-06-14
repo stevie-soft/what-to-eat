@@ -9,6 +9,7 @@ module david.buzas.whattoeat {
     requires org.kordamp.bootstrapfx.core;
     requires static lombok;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.datatype.jsr310;
 
     opens david.buzas.whattoeat to javafx.fxml;
     exports david.buzas.whattoeat;

@@ -89,6 +89,18 @@ public class ItemRepository<TItem extends Entity> implements Repository<TItem> {
         }
     }
 
+    public <TReturnType> void removeManyBy(Function<TItem, TReturnType> getter, TReturnType value) throws OperationException {
+        this.items = this.getAll().stream()
+                .filter((item) -> !(getter.apply(item).equals(value)))
+                .toList();
+
+        try {
+            this.persist();
+        } catch (IOException e) {
+            throw new Repository.RemoveOperationException(this.itemClass, e.getMessage());
+        }
+    }
+
     private void persist() throws IOException {
         this.itemManager.writeItems(this.items);
     }
