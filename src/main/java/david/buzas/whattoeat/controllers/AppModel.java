@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WhatToEatModel {
+public class AppModel {
     public static class MealFormModel {
         Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
         Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
@@ -103,6 +103,7 @@ public class WhatToEatModel {
     public void updateMeal() throws Repository.OperationException {
         Meal meal = this.mealFormModel.buildMeal();
         meal.setUuid(this.selectedMealProperty.get().getUuid());
+        this.selectedMealProperty.set(meal);
         this.mealRepository.update(meal);
         refreshMeals();
     }

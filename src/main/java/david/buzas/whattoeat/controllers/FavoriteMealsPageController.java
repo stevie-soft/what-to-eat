@@ -6,15 +6,11 @@ import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.Repository;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.util.Optional;
 
-public class WhatToEatController {
-    @FXML
-    public VBox rootContainer;
-
+public class FavoriteMealsPageController {
     @FXML
     public ChoiceBox<MealCategory> mealCategoryChoiceBox;
 
@@ -42,18 +38,16 @@ public class WhatToEatController {
     @FXML
     public Button removeButton;
 
-
-    WhatToEatModel model;
-
+    AppModel model;
 
     @FXML
     private void initialize() {
         this.applyCustomFieldConfigurations();
-        this.model = new WhatToEatModel();
+        this.model = new AppModel();
 
         this.favoriteMealsListView.itemsProperty().bind(this.model.mealsProperty);
         this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            this.model.selectedMealProperty.set(newValue)
+                this.model.selectedMealProperty.set(newValue)
         );
         this.model.selectedMealProperty.addListener((observable, oldValue, newValue) -> {
             this.favoriteMealsListView.getSelectionModel().select(newValue);
@@ -116,7 +110,6 @@ public class WhatToEatController {
         });
     }
 
-
     @FXML
     private void onAddMeal()  {
         try {
@@ -158,5 +151,4 @@ public class WhatToEatController {
     private void showError(String message) {
         new ErrorAlert(message).showAndWait();
     }
-
 }
