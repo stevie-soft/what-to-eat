@@ -93,18 +93,25 @@ public class WhatToEatModel {
         this.mealsProperty.set(FXCollections.observableList(meals));
     }
 
-    public void addMeal(Meal meal) throws Repository.OperationException {
+    public void addMeal() throws Repository.OperationException {
+        Meal meal = this.mealFormModel.buildMeal();
         this.mealRepository.add(meal);
+        this.selectedMealProperty.set(meal);
         refreshMeals();
     }
 
-    public void updateMeal(Meal meal) throws Repository.OperationException {
+    public void updateMeal() throws Repository.OperationException {
+        Meal meal = this.mealFormModel.buildMeal();
+        meal.setUuid(this.selectedMealProperty.get().getUuid());
         this.mealRepository.update(meal);
         refreshMeals();
     }
 
-    public void removeMeal(Meal meal) throws Repository.OperationException {
+    public void removeMeal() throws Repository.OperationException {
+        Meal meal = this.selectedMealProperty.get();
         this.mealRepository.remove(meal);
+        this.selectedMealProperty.set(null);
+        this.mealFormModel.clearValues();
         refreshMeals();
     }
 }

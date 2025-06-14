@@ -52,7 +52,9 @@ public class WhatToEatController {
         this.model = new WhatToEatModel();
 
         this.favoriteMealsListView.itemsProperty().bind(this.model.mealsProperty);
-        this.model.selectedMealProperty.bind(this.favoriteMealsListView.getSelectionModel().selectedItemProperty());
+        this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+            this.model.selectedMealProperty.set(newValue)
+        );
         this.model.selectedMealProperty.addListener((observable, oldValue, newValue) -> {
             this.favoriteMealsListView.getSelectionModel().select(newValue);
 
@@ -118,11 +120,8 @@ public class WhatToEatController {
 
     @FXML
     private void onAddMeal()  {
-        Meal meal = this.model.mealFormModel.buildMeal();
-
         try {
-            this.model.addMeal(meal);
-            this.favoriteMealsListView.getSelectionModel().select(meal);
+            this.model.addMeal();
         } catch (Repository.OperationException e) {
             this.fatal(e.getMessage());
         }
@@ -130,12 +129,8 @@ public class WhatToEatController {
 
     @FXML
     private void onUpdateMeal()  {
-        Meal meal = this.model.mealFormModel.buildMeal();
-        meal.setUuid(this.model.selectedMealProperty.get().getUuid());
-
         try {
-            this.model.updateMeal(meal);
-            this.favoriteMealsListView.getSelectionModel().select(meal);
+            this.model.updateMeal();
         } catch (Repository.OperationException e) {
             this.fatal(e.getMessage());
         }
@@ -150,14 +145,14 @@ public class WhatToEatController {
             return;
         }
 
-        if (userSelection.get() == ButtonType.OK) {
-            try {
-                this.model.removeMeal(this.model.selectedMealProperty.get());
-                this.favoriteMealsListView.getSelectionModel().select(null);
-                this.model.mealFormModel.clearValues();
-            } catch (Repository.OperationException e) {
-                this.fatal(e.getMessage());
-            }
+        if (userSelection.get() != ButtonType.OK) {
+            return;
+        }
+
+        try {
+            this.model.removeMeal();
+        } catch (Repository.OperationException e) {
+            this.fatal(e.getMessage());
         }
     }
 
