@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class AppModel {
     public static class MealFormModel {
@@ -88,6 +89,12 @@ public class AppModel {
         }
     }
 
+    public static class FilterFormModel {
+        SimpleObjectProperty<MealType> mealTypeProperty = new SimpleObjectProperty<>();
+        SimpleStringProperty ateDaysAgoProperty = new SimpleStringProperty();
+        SimpleStringProperty maximumTotalCostForintProperty = new SimpleStringProperty();
+    }
+
     Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
     Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
     Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
@@ -104,6 +111,13 @@ public class AppModel {
     public SimpleObjectProperty<MealConsumption> selectedConsumptionProperty = new SimpleObjectProperty<>();
     public SimpleBooleanProperty consumptionEditingDisabledProperty = new SimpleBooleanProperty(true);
     public ConsumptionFormModel consumptionFormModel = new ConsumptionFormModel();
+
+    public FilterFormModel filterFormModel = new FilterFormModel();
+    public SimpleObjectProperty<Meal> generatedSoupMeal = new SimpleObjectProperty<>();
+    public SimpleObjectProperty<Meal> generatedMainMeal = new SimpleObjectProperty<>();
+    public SimpleObjectProperty<Meal> generatedSideDish = new SimpleObjectProperty<>();
+    public SimpleObjectProperty<Meal> generatedExtraDish = new SimpleObjectProperty<>();
+    public SimpleStringProperty generatedResult = new SimpleStringProperty();
 
     public void setup() throws Repository.OperationException {
         selectedMealProperty.addListener((_, _, newValue) ->
@@ -185,5 +199,48 @@ public class AppModel {
         this.selectedConsumptionProperty.set(null);
         this.consumptionFormModel.clearValues();
         this.refreshConsumptions();
+    }
+
+    public void generateMeals() {
+        Random random = new Random();
+
+        List<Meal> soups = this.mealsProperty.get().stream()
+                .filter((meal) -> meal.getCategoryKey().equals("soup"))
+                .toList();
+        int soupIndex = random.nextInt(soups.size());
+        Meal soup = soups.get(soupIndex);
+        this.generatedSoupMeal.set(soup);
+
+
+        List<Meal> mainCourses = this.mealsProperty.get().stream()
+                .filter((meal) -> meal.getCategoryKey().equals("main-course"))
+                .toList();
+        int mainCourseIndex = random.nextInt(mainCourses.size());
+        Meal mainCourse = mainCourses.get(mainCourseIndex);
+        this.generatedMainMeal.set(mainCourse);
+
+
+        List<Meal> sideDishes = this.mealsProperty.get().stream()
+                .filter((meal) -> meal.getCategoryKey().equals("side-dish"))
+                .toList();
+        int sideDishIndex = random.nextInt(sideDishes.size());
+        Meal sideDish = sideDishes.get(sideDishIndex);
+        this.generatedSideDish.set(sideDish);
+
+
+        List<Meal> extraDishes = this.mealsProperty.get().stream()
+                .filter((meal) -> meal.getCategoryKey().equals("other"))
+                .toList();
+        int extraDishIndex = random.nextInt(extraDishes.size());
+        Meal extraDish = extraDishes.get(extraDishIndex);
+        this.generatedExtraDish.set(extraDish);
+
+        this.generatedResult.set(String.format(
+                "Leves: %s\nFőétel:%s + %s\nEgyéb: %s",
+                this.generatedSoupMeal.get().getTitle(),
+                this.generatedMainMeal.get().getTitle(),
+                this.generatedSideDish.get().getTitle(),
+                this.generatedExtraDish.get().getTitle()
+        ));
     }
 }

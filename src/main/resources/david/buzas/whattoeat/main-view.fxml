@@ -8,7 +8,11 @@
 <VBox fx:id="rootContainer" alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.controllers.MainController">
       <TabPane prefHeight="621.0" prefWidth="1004.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <Tab text="Mit egyek ma?">
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="804.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="804.0">
+            <children>
+               <VBox layoutX="145.0" layoutY="36.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               <fx:include source="what-to-eat-page.fxml" />
+            </children></AnchorPane>
           </Tab>
             <Tab text="Elfogyasztott ételek">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
