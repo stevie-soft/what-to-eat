@@ -90,7 +90,7 @@
                                  <Insets right="10.0" />
                               </HBox.margin>
                            </Button>
-                           <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateMeal" text="⟳ Frissít">
+                           <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateMeal" text="⟳ Felülír">
                               <HBox.margin>
                                  <Insets right="40.0" />
                               </HBox.margin>
