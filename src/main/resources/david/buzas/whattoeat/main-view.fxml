@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootContainer" alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.WhatToEatController">
+<VBox fx:id="rootContainer" alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.controllers.WhatToEatController">
       <TabPane prefHeight="523.0" prefWidth="957.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <Tab text="Mit egyek ma?">
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="804.0" />
