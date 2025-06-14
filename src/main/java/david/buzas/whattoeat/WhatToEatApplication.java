@@ -1,5 +1,6 @@
 package david.buzas.whattoeat;
 
+import david.buzas.whattoeat.controllers.AppModel;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
@@ -18,6 +19,8 @@ public class WhatToEatApplication extends Application {
     public static Repository<Meal> mealRepository = new MealRepository("user-meals.json");
     public static Repository<MealCategory> mealCategoryRepository = new MealCategoryRepository("meal-categories.json");
     public static Repository<MealType> mealTypeRepository = new MealTypeRepository("meal-types.json");
+
+    public static AppModel model = new AppModel();
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -1,5 +1,6 @@
 package david.buzas.whattoeat.controllers;
 
+import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
@@ -38,12 +39,11 @@ public class FavoriteMealsPageController {
     @FXML
     public Button removeButton;
 
-    AppModel model;
+    AppModel model = WhatToEatApplication.model;
 
     @FXML
     private void initialize() {
         this.applyCustomFieldConfigurations();
-        this.model = new AppModel();
 
         this.favoriteMealsListView.itemsProperty().bind(this.model.mealsProperty);
         this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
