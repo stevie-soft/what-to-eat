@@ -61,7 +61,7 @@ public class WhatToEatController {
             try {
                 this.model.mealFormModel.loadValues(newValue);
             } catch (Repository.OperationException e) {
-                this.fatal(e.getMessage());
+                this.showError(e.getMessage());
             }
         });
         this.mealCategoryChoiceBox.itemsProperty().bind(this.model.mealCategoriesProperty);
@@ -75,11 +75,10 @@ public class WhatToEatController {
         this.model.mealFormModel.consumptionFrequencyDaysProperty.bindBidirectional(this.mealConsuptionFrequencyDaysTextField.textProperty());
         this.model.mealFormModel.averageCostForintProperty.bindBidirectional(this.mealAverageCostForintTextField.textProperty());
 
-
         try {
             this.model.setup();
         } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
+            this.showError(e.getMessage());
         }
     }
 
@@ -123,7 +122,7 @@ public class WhatToEatController {
         try {
             this.model.addMeal();
         } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
+            this.showError(e.getMessage());
         }
     }
 
@@ -132,7 +131,7 @@ public class WhatToEatController {
         try {
             this.model.updateMeal();
         } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
+            this.showError(e.getMessage());
         }
     }
 
@@ -152,11 +151,11 @@ public class WhatToEatController {
         try {
             this.model.removeMeal();
         } catch (Repository.OperationException e) {
-            this.fatal(e.getMessage());
+            this.showError(e.getMessage());
         }
     }
 
-    private void fatal(String message) {
+    private void showError(String message) {
         new ErrorAlert(message).showAndWait();
     }
 
