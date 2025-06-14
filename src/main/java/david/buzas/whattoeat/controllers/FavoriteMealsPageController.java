@@ -5,6 +5,8 @@ import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.utils.DeleteConfirmationDialog;
+import david.buzas.whattoeat.utils.ErrorAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
@@ -77,7 +79,7 @@ public class FavoriteMealsPageController {
     }
 
     private void applyCustomFieldConfigurations() {
-        this.favoriteMealsListView.setCellFactory(mealListView -> new ListCell<>() {
+        this.favoriteMealsListView.setCellFactory(_ -> new ListCell<>() {
             @Override
             protected void updateItem(Meal meal, boolean empty) {
                 super.updateItem(meal, empty);

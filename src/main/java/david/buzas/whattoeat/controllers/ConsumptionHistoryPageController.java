@@ -4,6 +4,8 @@ import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.utils.DeleteConfirmationDialog;
+import david.buzas.whattoeat.utils.ErrorAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
