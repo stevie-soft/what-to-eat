@@ -1,5 +1,6 @@
 package david.buzas.whattoeat.controllers;
 
+import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealConsumption;
@@ -32,7 +33,7 @@ public class ConsumptionHistoryPageController {
     @FXML
     public ListView<MealConsumption> consumptionHistoryListView;
 
-    AppModel model = WhatToEatApplication.model;
+    WhatToEatModel model = WhatToEatApplication.model;
 
     @FXML
     private void initialize() {

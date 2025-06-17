@@ -1,5 +1,6 @@
 package david.buzas.whattoeat.controllers;
 
+import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
@@ -41,7 +42,7 @@ public class FavoriteMealsPageController {
     @FXML
     public Button removeButton;
 
-    AppModel model = WhatToEatApplication.model;
+    WhatToEatModel model = WhatToEatApplication.model;
 
     @FXML
     private void initialize() {

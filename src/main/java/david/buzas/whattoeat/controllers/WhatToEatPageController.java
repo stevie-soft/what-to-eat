@@ -1,5 +1,6 @@
 package david.buzas.whattoeat.controllers;
 
+import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.MealType;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ public class WhatToEatPageController {
     @FXML
     Button generateButton;
 
-    AppModel model = WhatToEatApplication.model;
+    WhatToEatModel model = WhatToEatApplication.model;
 
     @FXML
     private void initialize() {

@@ -1,6 +1,5 @@
-package david.buzas.whattoeat.controllers;
+package david.buzas.whattoeat;
 
-import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealConsumption;
@@ -15,7 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-public class AppModel {
+public class WhatToEatModel {
     public static class MealFormModel {
         Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
         Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
@@ -90,15 +89,15 @@ public class AppModel {
     }
 
     public static class FilterFormModel {
-        SimpleObjectProperty<MealType> mealTypeProperty = new SimpleObjectProperty<>();
-        SimpleStringProperty ateDaysAgoProperty = new SimpleStringProperty();
-        SimpleStringProperty maximumTotalCostForintProperty = new SimpleStringProperty();
+        public SimpleObjectProperty<MealType> mealTypeProperty = new SimpleObjectProperty<>();
+        public SimpleStringProperty ateDaysAgoProperty = new SimpleStringProperty();
+        public SimpleStringProperty maximumTotalCostForintProperty = new SimpleStringProperty();
     }
 
-    Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
-    Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
-    Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
-    Repository<MealConsumption> consumptionRepository = WhatToEatApplication.mealConsumptionRepository;
+    public Repository<Meal> mealRepository = WhatToEatApplication.mealRepository;
+    public Repository<MealCategory> mealCategoryRepository = WhatToEatApplication.mealCategoryRepository;
+    public Repository<MealType> mealTypeRepository = WhatToEatApplication.mealTypeRepository;
+    public Repository<MealConsumption> consumptionRepository = WhatToEatApplication.mealConsumptionRepository;
 
     public SimpleObjectProperty<Meal> selectedMealProperty = new SimpleObjectProperty<>();
     public SimpleBooleanProperty editingDisabledProperty = new SimpleBooleanProperty(true);
