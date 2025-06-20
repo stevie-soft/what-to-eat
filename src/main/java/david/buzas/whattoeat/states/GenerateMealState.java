@@ -21,7 +21,7 @@ public class GenerateMealState extends PartialAppState {
 
     public GenerateMealState(AppState appState) {
         super(appState);
-        this.soupName = new SimpleStringProperty("");
+        this.soupName = new SimpleStringProperty();
         this.mainCourseName = new SimpleStringProperty();
         this.sideDishName = new SimpleStringProperty();
         this.extraDishName = new SimpleStringProperty();
@@ -33,10 +33,10 @@ public class GenerateMealState extends PartialAppState {
     public void generate() throws Repository.OperationException {
         List<Meal> validMeals = this.getValidMeals();
 
-        List<Meal> validSoups = this.extractMealsByTypeKey(validMeals, "soup");
-        List<Meal> validMainCourses = this.extractMealsByTypeKey(validMeals, "main-course");
-        List<Meal> validSideDishes = this.extractMealsByTypeKey(validMeals, "side-dish");
-        List<Meal> validExtraDishes = this.extractMealsByTypeKey(validMeals, "other");
+        List<Meal> validSoups = this.extractMealsByCategoryKey(validMeals, "soup");
+        List<Meal> validMainCourses = this.extractMealsByCategoryKey(validMeals, "main-course");
+        List<Meal> validSideDishes = this.extractMealsByCategoryKey(validMeals, "side-dish");
+        List<Meal> validExtraDishes = this.extractMealsByCategoryKey(validMeals, "other");
 
         Meal generatedSoup = this.extractRandomMeal(validSoups);
         Meal generatedMainCourse = this.extractRandomMeal(validMainCourses);
@@ -119,9 +119,9 @@ public class GenerateMealState extends PartialAppState {
         return false;
     }
 
-    private List<Meal> extractMealsByTypeKey(List<Meal> meals, String mealTypeKey) {
+    private List<Meal> extractMealsByCategoryKey(List<Meal> meals, String mealCategoryKey) {
         return meals.stream()
-                .filter((meal) -> meal.getTypeKey().equals(mealTypeKey))
+                .filter((meal) -> meal.getCategoryKey().equals(mealCategoryKey))
                 .toList();
     }
 
