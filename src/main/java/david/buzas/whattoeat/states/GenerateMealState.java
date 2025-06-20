@@ -3,28 +3,29 @@ package david.buzas.whattoeat.states;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.repositories.Repository;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 import java.util.*;
 
 public class GenerateMealState extends PartialAppState {
-    public ObjectProperty<String> soup;
-    public ObjectProperty<String> mainCourse;
-    public ObjectProperty<String> sideDish;
-    public ObjectProperty<String> extraDish;
-    public ObjectProperty<String> totalCostForint;
+    public StringProperty soupName;
+    public StringProperty mainCourseName;
+    public StringProperty sideDishName;
+    public StringProperty extraDishName;
+    public StringProperty totalCostForint;
 
     Repository<Meal> mealRepository;
     Repository<MealConsumption> mealConsumptionRepository;
 
     public GenerateMealState(AppState appState) {
         super(appState);
-        this.soup = new SimpleObjectProperty<>();
-        this.mainCourse = new SimpleObjectProperty<>();
-        this.sideDish = new SimpleObjectProperty<>();
-        this.extraDish = new SimpleObjectProperty<>();
+        this.soupName = new SimpleStringProperty("");
+        this.mainCourseName = new SimpleStringProperty();
+        this.sideDishName = new SimpleStringProperty();
+        this.extraDishName = new SimpleStringProperty();
+        this.totalCostForint = new SimpleStringProperty();
         this.mealRepository = this.appState.repositories.getMealRepository();
         this.mealConsumptionRepository = this.appState.repositories.getMealConsumptionRepository();
     }
@@ -77,11 +78,11 @@ public class GenerateMealState extends PartialAppState {
             generatedExtraDishName = "Nincs megfelelő egyéb.";
         }
 
-        this.soup.set(generatedSoupName);
-        this.mainCourse.set(generatedMainCourseName);
-        this.sideDish.set(generatedSideDishName);
-        this.extraDish.set(generatedExtraDishName);
-        this.totalCostForint.set(String.valueOf(totalCost));
+        this.soupName.set("Leves: " + generatedSoupName);
+        this.mainCourseName.set("Főétel: " + generatedMainCourseName);
+        this.sideDishName.set("Köret: " + generatedSideDishName);
+        this.extraDishName.set("Egyéb: " + generatedExtraDishName);
+        this.totalCostForint.set("Összköltség (Ft): " + totalCost);
     }
 
     private List<Meal> getValidMeals() throws Repository.OperationException {

@@ -11,6 +11,7 @@ public class AppState {
     public MealTypesState mealTypesState;
     public MealFormState mealFormState;
     public MealConsumptionFormState mealConsumptionFormState;
+    public GenerateMealState generateMealState;
 
     public AppState() {
         this.repositories = new Repositories();
@@ -20,6 +21,7 @@ public class AppState {
         this.mealTypesState = new MealTypesState(this);
         this.mealFormState = new MealFormState(this);
         this.mealConsumptionFormState = new MealConsumptionFormState(this);
+        this.generateMealState = new GenerateMealState(this);
     }
 
     public void setup() throws Repository.OperationException {
