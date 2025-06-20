@@ -1,20 +1,20 @@
 package david.buzas.whattoeat.ui.controllers;
 
-import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.states.AppState;
+import david.buzas.whattoeat.states.MealFormState;
 import david.buzas.whattoeat.ui.components.DeleteConfirmationDialog;
-import david.buzas.whattoeat.ui.components.ErrorAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.util.Optional;
 
-public class FavoriteMealsPageController {
+public class FavoriteMealsPageController extends Controller {
     @FXML
     public ChoiceBox<MealCategory> mealCategoryChoiceBox;
 
@@ -42,41 +42,34 @@ public class FavoriteMealsPageController {
     @FXML
     public Button removeButton;
 
-    WhatToEatModel model = WhatToEatApplication.model;
+    AppState state = WhatToEatApplication.state;
+    MealFormState formState = WhatToEatApplication.state.mealFormState;
 
     @FXML
     private void initialize() {
         this.applyCustomFieldConfigurations();
 
-        this.favoriteMealsListView.itemsProperty().bind(this.model.mealsProperty);
+        this.favoriteMealsListView.itemsProperty().bind(this.state.mealsState.property);
         this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
-                this.model.selectedMealProperty.set(newValue)
+                this.formState.selectedMealProperty.set(newValue)
         );
-        this.model.selectedMealProperty.addListener((_, _, newValue) -> {
+        this.formState.selectedMealProperty.addListener((_, _, newValue) -> {
             this.favoriteMealsListView.getSelectionModel().select(newValue);
-
-            try {
-                this.model.mealFormModel.loadValues(newValue);
-            } catch (Repository.OperationException e) {
-                this.showError(e.getMessage());
-            }
         });
-        this.mealCategoryChoiceBox.itemsProperty().bind(this.model.mealCategoriesProperty);
-        this.mealTypeChoiceBox.itemsProperty().bind(this.model.mealTypesProperty);
-        this.updateButton.disableProperty().bind(this.model.editingDisabledProperty);
-        this.removeButton.disableProperty().bind(this.model.editingDisabledProperty);
 
-        this.mealTitleTextField.textProperty().bindBidirectional(this.model.mealFormModel.titleProperty);
-        this.model.mealFormModel.categoryProperty.bindBidirectional(this.mealCategoryChoiceBox.valueProperty());
-        this.model.mealFormModel.typeProperty.bindBidirectional(this.mealTypeChoiceBox.valueProperty());
-        this.model.mealFormModel.consumptionFrequencyDaysProperty.bindBidirectional(this.mealConsuptionFrequencyDaysTextField.textProperty());
-        this.model.mealFormModel.averageCostForintProperty.bindBidirectional(this.mealAverageCostForintTextField.textProperty());
+        this.mealTitleTextField.textProperty().bindBidirectional(this.formState.mealTitleProperty);
 
-        try {
-            this.model.setup();
-        } catch (Repository.OperationException e) {
-            this.showError(e.getMessage());
-        }
+        this.mealCategoryChoiceBox.itemsProperty().bind(this.state.mealCategoriesState.property);
+        this.mealCategoryChoiceBox.valueProperty().bindBidirectional(this.formState.mealCategoryProperty);
+
+        this.mealTypeChoiceBox.itemsProperty().bind(this.state.mealTypesState.property);
+        this.mealTypeChoiceBox.valueProperty().bindBidirectional(this.formState.mealTypeProperty);
+
+        this.updateButton.disableProperty().bind(this.formState.editDisabledProperty);
+        this.removeButton.disableProperty().bind(this.formState.editDisabledProperty);
+
+        this.mealConsuptionFrequencyDaysTextField.textProperty().bindBidirectional(this.formState.consumptionFrequencyDaysProperty);
+        this.mealAverageCostForintTextField.textProperty().bindBidirectional(this.formState.averageCostForintProperty);
     }
 
     private void applyCustomFieldConfigurations() {
@@ -128,7 +121,7 @@ public class FavoriteMealsPageController {
     @FXML
     private void onAddMeal()  {
         try {
-            this.model.addMeal();
+            this.formState.addNewMeal();
         } catch (Repository.OperationException e) {
             this.showError(e.getMessage());
         }
@@ -137,7 +130,7 @@ public class FavoriteMealsPageController {
     @FXML
     private void onUpdateMeal()  {
         try {
-            this.model.updateMeal();
+            this.formState.updateSelectedMeal();
         } catch (Repository.OperationException e) {
             this.showError(e.getMessage());
         }
@@ -145,7 +138,7 @@ public class FavoriteMealsPageController {
 
     @FXML
     private void onRemoveMeal() {
-        Alert dialog = new DeleteConfirmationDialog(this.model.selectedMealProperty.get().getTitle());
+        Alert dialog = new DeleteConfirmationDialog(this.formState.selectedMealProperty.get().getTitle());
         Optional<ButtonType> userSelection = dialog.showAndWait();
 
         if (userSelection.isEmpty()) {
@@ -157,13 +150,9 @@ public class FavoriteMealsPageController {
         }
 
         try {
-            this.model.removeMeal();
+            this.formState.removeSelectedMeal();
         } catch (Repository.OperationException e) {
             this.showError(e.getMessage());
         }
-    }
-
-    private void showError(String message) {
-        new ErrorAlert(message).showAndWait();
     }
 }
