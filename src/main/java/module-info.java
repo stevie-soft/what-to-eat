@@ -15,8 +15,6 @@ module david.buzas.whattoeat {
     exports david.buzas.whattoeat;
     exports david.buzas.whattoeat.entities;
     opens david.buzas.whattoeat.entities to javafx.fxml;
-    exports david.buzas.whattoeat.utils.itemmanager;
-    opens david.buzas.whattoeat.utils.itemmanager to javafx.fxml;
     exports david.buzas.whattoeat.repositories;
     opens david.buzas.whattoeat.repositories to javafx.fxml;
     exports david.buzas.whattoeat.ui.controllers;
@@ -25,4 +23,6 @@ module david.buzas.whattoeat {
     opens david.buzas.whattoeat.ui.components to javafx.fxml;
     exports david.buzas.whattoeat.states;
     opens david.buzas.whattoeat.states to javafx.fxml;
+    exports david.buzas.whattoeat.repositories.utils;
+    opens david.buzas.whattoeat.repositories.utils to javafx.fxml;
 }

@@ -1,7 +1,7 @@
 package david.buzas.whattoeat.itemmanagement;
 
 import david.buzas.whattoeat.entities.Meal;
-import david.buzas.whattoeat.utils.itemmanager.JsonFileItemManager;
+import david.buzas.whattoeat.repositories.utils.JsonFileItemManager;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
