@@ -1,7 +1,7 @@
 package david.buzas.whattoeat.repositories;
 
 import david.buzas.whattoeat.entities.MealConsumption;
-import david.buzas.whattoeat.utils.itemmanager.JsonFileItemManager;
+import david.buzas.whattoeat.repositories.utils.JsonFileItemManager;
 
 public class MealConsumptionRepository extends ItemRepository<MealConsumption> {
     public MealConsumptionRepository(String filePathRaw) {

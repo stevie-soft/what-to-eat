@@ -22,9 +22,9 @@ public class Repositories {
     private Repository<MealConsumption> mealConsumptionRepository;
 
     public Repositories() {
-        this.mealRepository = new MealRepository("user-meals.json");
-        this.mealCategoryRepository = new MealCategoryRepository("meal-categories.json");
-        this.mealTypeRepository = new MealTypeRepository("meal-types.json");
-        this.mealConsumptionRepository = new MealConsumptionRepository("user-consumptions.json");
+        this.mealRepository = new MealRepository("data/user-meals.json");
+        this.mealCategoryRepository = new MealCategoryRepository("data/meal-categories.json");
+        this.mealTypeRepository = new MealTypeRepository("data/meal-types.json");
+        this.mealConsumptionRepository = new MealConsumptionRepository("data/user-consumptions.json");
     }
 }
