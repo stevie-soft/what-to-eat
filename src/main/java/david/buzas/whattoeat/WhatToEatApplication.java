@@ -5,6 +5,7 @@ import david.buzas.whattoeat.entities.MealCategory;
 import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.*;
+import david.buzas.whattoeat.states.AppState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,9 +20,12 @@ public class WhatToEatApplication extends Application {
     public static Repository<MealType> mealTypeRepository = new MealTypeRepository("meal-types.json");
 
     public static WhatToEatModel model = new WhatToEatModel();
+    public static AppState state = new AppState();
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, Repository.OperationException {
+        WhatToEatApplication.state.setup();
+
         FXMLLoader fxmlLoader = new FXMLLoader(WhatToEatApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setFullScreen(false);
