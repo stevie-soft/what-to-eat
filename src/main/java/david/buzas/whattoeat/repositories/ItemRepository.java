@@ -1,6 +1,6 @@
-package david.buzas.whattoeat.itemmanagement;
+package david.buzas.whattoeat.repositories;
 
-import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.utils.itemmanager.ItemManager;
 import david.buzas.whattoeat.entities.Entity;
 
 import java.io.IOException;

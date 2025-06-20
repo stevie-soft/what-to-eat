@@ -1,4 +1,4 @@
-package david.buzas.whattoeat.itemmanagement;
+package david.buzas.whattoeat.utils.itemmanager;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
