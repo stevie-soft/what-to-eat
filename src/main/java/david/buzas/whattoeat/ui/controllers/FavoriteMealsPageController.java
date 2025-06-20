@@ -120,6 +120,8 @@ public class FavoriteMealsPageController extends Controller {
 
     @FXML
     private void onAddMeal()  {
+        this.validateForm();
+
         try {
             this.formState.addNewMeal();
         } catch (Repository.OperationException e) {
@@ -129,6 +131,8 @@ public class FavoriteMealsPageController extends Controller {
 
     @FXML
     private void onUpdateMeal()  {
+        this.validateForm();
+
         try {
             this.formState.updateSelectedMeal();
         } catch (Repository.OperationException e) {
@@ -153,6 +157,13 @@ public class FavoriteMealsPageController extends Controller {
             this.formState.removeSelectedMeal();
         } catch (Repository.OperationException e) {
             this.showError(e.getMessage());
+        }
+    }
+
+    private void validateForm() {
+        if (this.formState.isInvalid()) {
+            this.showError("Hibás form! Tölts ki minden mezőt!");
+            throw new RuntimeException("invalid form");
         }
     }
 }

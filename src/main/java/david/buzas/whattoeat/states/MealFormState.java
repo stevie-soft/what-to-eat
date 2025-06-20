@@ -50,6 +50,38 @@ public class MealFormState extends PartialAppState {
         this.resetFormValues();
     }
 
+    public boolean isValid() {
+        String title = this.mealTitleProperty.get();
+        if (title == null || title.isEmpty()) {
+            return false;
+        }
+
+        if (this.mealCategoryProperty.get() == null) {
+            return false;
+        }
+
+        if (this.mealTypeProperty.get() == null) {
+            return false;
+        }
+
+
+        String consumptionFrequencyDaysProperty = this.consumptionFrequencyDaysProperty.get();
+        if (consumptionFrequencyDaysProperty == null || consumptionFrequencyDaysProperty.isEmpty()) {
+            return false;
+        }
+
+        String averageCostForintProperty = this.averageCostForintProperty.get();
+        if (averageCostForintProperty == null || averageCostForintProperty.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isInvalid() {
+        return !this.isValid();
+    }
+
     private void loadFormValuesFromMeal(Meal meal) throws Repository.OperationException {
         this.mealTitleProperty.set(meal.getTitle());
 
