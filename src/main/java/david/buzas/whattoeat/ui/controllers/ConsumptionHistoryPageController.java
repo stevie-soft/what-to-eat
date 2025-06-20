@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class ConsumptionHistoryPageController {
 
@@ -92,7 +93,18 @@ public class ConsumptionHistoryPageController {
 
     @FXML
     private void onRemoveConsumption() {
-        Alert dialog = new DeleteConfirmationDialog(this.formState.selectedMealConsumptionProperty.getName());
+        UUID mealUuid = this.formState.selectedMealConsumptionProperty.get().getMealUuid();
+        Meal meal;
+
+        try {
+            meal = this.state.repositoriesState.getMealRepository().getByUuid(mealUuid);
+        } catch (Repository.OperationException e) {
+            new ErrorAlert(e.getMessage()).showAndWait();
+            return;
+        }
+
+        String resourceName = meal.getTitle() + " - " + this.formState.selectedMealConsumptionProperty.get().getDate();
+        Alert dialog = new DeleteConfirmationDialog(resourceName);
         Optional<ButtonType> userSelection = dialog.showAndWait();
 
         if (userSelection.isEmpty()) {
