@@ -6,6 +6,7 @@ import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.utils.ArrayListProperty;
 import javafx.beans.property.SimpleListProperty;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class MealConsumptionsState extends PartialAppState {
@@ -21,7 +22,8 @@ public class MealConsumptionsState extends PartialAppState {
 
     public void refreshAll() throws Repository.OperationException {
         List<MealConsumption> mealConsumptions = this.repository.getAll();
-        this.property.setAll(mealConsumptions);
+        List<MealConsumption> mealConsumptionsOrdered = mealConsumptions.stream().sorted(Comparator.comparing(MealConsumption::getDate)).toList();
+        this.property.setAll(mealConsumptionsOrdered.reversed());
     }
 
     public void add(MealConsumption mealConsumption) throws Repository.OperationException {

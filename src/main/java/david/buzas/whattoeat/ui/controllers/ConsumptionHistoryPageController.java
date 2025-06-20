@@ -52,7 +52,6 @@ public class ConsumptionHistoryPageController extends Controller {
 
         this.updateButton.disableProperty().bind(this.formState.editDisabledProperty);
         this.removeButton.disableProperty().bind(this.formState.editDisabledProperty);
-
     }
 
     @FXML

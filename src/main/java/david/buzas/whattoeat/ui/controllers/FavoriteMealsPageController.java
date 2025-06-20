@@ -7,8 +7,7 @@ import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.AppState;
 import david.buzas.whattoeat.states.MealFormState;
-import david.buzas.whattoeat.ui.components.DeleteConfirmationDialog;
-import david.buzas.whattoeat.ui.components.NumberField;
+import david.buzas.whattoeat.ui.components.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 public class FavoriteMealsPageController extends Controller {
     @FXML
-    public ChoiceBox<MealCategory> mealCategoryChoiceBox;
+    public MealCategoryChoiceBox mealCategoryChoiceBox;
 
     @FXML
     public TextField mealTitleTextField;
@@ -28,19 +27,19 @@ public class FavoriteMealsPageController extends Controller {
     public NumberField mealAverageCostForintTextField;
 
     @FXML
-    public ListView<Meal> favoriteMealsListView;
+    public MealsListView favoriteMealsListView;
 
     @FXML
-    public ChoiceBox<MealType> mealTypeChoiceBox;
+    public MealTypeChoiceBox mealTypeChoiceBox;
 
     @FXML
-    public Button addButton;
+    public AddButton addButton;
 
     @FXML
-    public Button updateButton;
+    public UpdateButton updateButton;
 
     @FXML
-    public Button removeButton;
+    public RemoveButton removeButton;
 
     AppState state = WhatToEatApplication.state;
     MealFormState formState = WhatToEatApplication.state.mealFormState;

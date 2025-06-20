@@ -55,6 +55,8 @@ public interface Repository<TEntity extends Entity> {
     Optional<TEntity> findByUuid(UUID uuid) throws OperationException;
     <TReturnType> TEntity getBy(Function<TEntity, TReturnType> getter, TReturnType value) throws OperationException;
     <TReturnType> Optional<TEntity> findBy(Function<TEntity, TReturnType> getter, TReturnType value) throws OperationException;
+    <TReturnType> List<TEntity> findManyBy(Function<TEntity, TReturnType> getter, TReturnType value) throws OperationException;
+
     void add(TEntity entity) throws OperationException;
     void update(TEntity entity) throws OperationException;
     void remove(TEntity entity) throws OperationException;

@@ -55,6 +55,12 @@ public class ItemRepository<TItem extends Entity> implements Repository<TItem> {
                 .findFirst();
     }
 
+    public <TReturnType> List<TItem> findManyBy(Function<TItem, TReturnType> getter, TReturnType value) throws OperationException {
+        return this.getAll().stream()
+                .filter(item -> getter.apply(item).equals(value))
+                .toList();
+    }
+
     public void add(TItem item) throws Repository.OperationException {
         item.setUuid(UUID.randomUUID());
         this.items.add(item);
