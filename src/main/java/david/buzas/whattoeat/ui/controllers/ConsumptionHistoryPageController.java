@@ -1,10 +1,11 @@
 package david.buzas.whattoeat.ui.controllers;
 
-import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.repositories.Repository;
+import david.buzas.whattoeat.states.AppState;
+import david.buzas.whattoeat.states.MealConsumptionFormState;
 import david.buzas.whattoeat.ui.components.DeleteConfirmationDialog;
 import david.buzas.whattoeat.ui.components.ErrorAlert;
 import javafx.fxml.FXML;
@@ -33,36 +34,28 @@ public class ConsumptionHistoryPageController {
     @FXML
     public ListView<MealConsumption> consumptionHistoryListView;
 
-    WhatToEatModel model = WhatToEatApplication.model;
+    AppState state = WhatToEatApplication.state;
+    MealConsumptionFormState formState = WhatToEatApplication.state.mealConsumptionFormState;
 
     @FXML
     private void initialize() {
-        this.mealChoiceBox.itemsProperty().bind(this.model.mealsProperty);
-        this.mealChoiceBox.valueProperty().bindBidirectional(this.model.consumptionFormModel.mealProperty);
-        this.consumptionDatePicker.valueProperty().bindBidirectional(this.model.consumptionFormModel.dateProperty);
-        this.consumptionHistoryListView.itemsProperty().bind(this.model.consumptionsProperty);
-        this.consumptionHistoryListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
-                this.model.selectedConsumptionProperty.set(newValue)
-        );
-        this.model.selectedConsumptionProperty.addListener((_, _, newValue) -> {
-            this.consumptionHistoryListView.getSelectionModel().select(newValue);
+        this.mealChoiceBox.itemsProperty().bind(this.state.mealsState.property);
+        this.mealChoiceBox.valueProperty().bindBidirectional(this.formState.mealProperty);
 
-            try {
-                this.model.consumptionFormModel.loadValues(newValue);
-            } catch (Repository.OperationException e) {
-                new ErrorAlert(e.getMessage()).showAndWait();
-            }
+        this.consumptionDatePicker.valueProperty().bindBidirectional(this.formState.dateProperty);
+
+        this.consumptionHistoryListView.itemsProperty().bind(this.state.mealConsumptionsState.property);
+        this.consumptionHistoryListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
+                this.formState.selectedMealConsumptionProperty.set(newValue)
+        );
+        this.formState.selectedMealConsumptionProperty.addListener((_, _, mealConsumption) -> {
+            this.consumptionHistoryListView.getSelectionModel().select(mealConsumption);
         });
-        this.updateButton.disableProperty().bind(this.model.consumptionEditingDisabledProperty);
-        this.removeButton.disableProperty().bind(this.model.consumptionEditingDisabledProperty);
+
+        this.updateButton.disableProperty().bind(this.formState.editDisabledProperty);
+        this.removeButton.disableProperty().bind(this.formState.editDisabledProperty);
 
         this.applyCustomFieldConfigurations();
-
-        try {
-            this.model.setup();
-        } catch (Repository.OperationException e) {
-            new ErrorAlert(e.getMessage()).showAndWait();
-        }
     }
 
     private void applyCustomFieldConfigurations() {
@@ -82,7 +75,7 @@ public class ConsumptionHistoryPageController {
     @FXML
     private void onAddConsumption() {
         try {
-            this.model.addConsumption();
+            this.formState.addNewMealConsumption();
         } catch (Repository.OperationException e) {
             new ErrorAlert(e.getMessage()).showAndWait();
         }
@@ -91,7 +84,7 @@ public class ConsumptionHistoryPageController {
     @FXML
     private void onUpdateConsumption() {
         try {
-            this.model.updateConsumption();
+            this.formState.updateSelectedMealConsumption();
         } catch (Repository.OperationException e) {
             new ErrorAlert(e.getMessage()).showAndWait();
         }
@@ -99,7 +92,7 @@ public class ConsumptionHistoryPageController {
 
     @FXML
     private void onRemoveConsumption() {
-        Alert dialog = new DeleteConfirmationDialog(this.model.selectedConsumptionProperty.get().toString());
+        Alert dialog = new DeleteConfirmationDialog(this.formState.selectedMealConsumptionProperty.getName());
         Optional<ButtonType> userSelection = dialog.showAndWait();
 
         if (userSelection.isEmpty()) {
@@ -111,7 +104,7 @@ public class ConsumptionHistoryPageController {
         }
 
         try {
-            this.model.removeConsumption();
+            this.formState.removeSelectedMealConsumption();
         } catch (Repository.OperationException e) {
             new ErrorAlert(e.getMessage()).showAndWait();
         }

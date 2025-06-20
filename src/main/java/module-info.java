@@ -23,4 +23,6 @@ module david.buzas.whattoeat {
     opens david.buzas.whattoeat.ui.controllers to javafx.fxml;
     exports david.buzas.whattoeat.ui.components;
     opens david.buzas.whattoeat.ui.components to javafx.fxml;
+    exports david.buzas.whattoeat.states;
+    opens david.buzas.whattoeat.states to javafx.fxml;
 }
