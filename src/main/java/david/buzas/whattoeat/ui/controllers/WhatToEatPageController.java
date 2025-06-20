@@ -1,4 +1,4 @@
-package david.buzas.whattoeat.controllers;
+package david.buzas.whattoeat.ui.controllers;
 
 import david.buzas.whattoeat.WhatToEatModel;
 import david.buzas.whattoeat.WhatToEatApplication;

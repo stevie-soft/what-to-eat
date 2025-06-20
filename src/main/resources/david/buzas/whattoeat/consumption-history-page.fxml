@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.controllers.ConsumptionHistoryPageController">
+<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.ConsumptionHistoryPageController">
    <children>
       <ListView fx:id="consumptionHistoryListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="420.0" prefWidth="250.0" />
       <VBox prefHeight="531.0" prefWidth="608.0" HBox.hgrow="ALWAYS">

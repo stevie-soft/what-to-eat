@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.controllers.FavoriteMealsPageController">
+<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.FavoriteMealsPageController">
    <children>
       <ListView fx:id="favoriteMealsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="420.0" prefWidth="250.0" />
       <VBox prefHeight="429.0" prefWidth="732.0" HBox.hgrow="ALWAYS">

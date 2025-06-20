@@ -1,4 +1,4 @@
-package david.buzas.whattoeat.utils;
+package david.buzas.whattoeat.ui.components;
 
 import javafx.scene.control.Alert;
 
