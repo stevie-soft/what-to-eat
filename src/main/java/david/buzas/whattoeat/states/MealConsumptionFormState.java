@@ -44,7 +44,7 @@ public class MealConsumptionFormState extends PartialAppState {
     }
 
     private void loadFormValuesFromMealConsumption(MealConsumption mealConsumption) throws Repository.OperationException {
-        Meal meal = this.appState.repositoriesState.getMealRepository().getByUuid(mealConsumption.getMealUuid());
+        Meal meal = this.appState.repositories.getMealRepository().getByUuid(mealConsumption.getMealUuid());
         this.mealProperty.set(meal);
         this.dateProperty.set(mealConsumption.getDate());
     }

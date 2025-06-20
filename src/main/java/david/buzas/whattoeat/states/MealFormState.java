@@ -53,11 +53,11 @@ public class MealFormState extends PartialAppState {
     private void loadFormValuesFromMeal(Meal meal) throws Repository.OperationException {
         this.mealTitleProperty.set(meal.getTitle());
 
-        Repository<MealCategory> mealCategoryRepository = this.appState.repositoriesState.getMealCategoryRepository();
+        Repository<MealCategory> mealCategoryRepository = this.appState.repositories.getMealCategoryRepository();
         MealCategory mealCategory = mealCategoryRepository.getBy(MealCategory::getKey, meal.getCategoryKey());
         this.mealCategoryProperty.set(mealCategory);
 
-        Repository<MealType> mealTypeRepository = this.appState.repositoriesState.getMealTypeRepository();
+        Repository<MealType> mealTypeRepository = this.appState.repositories.getMealTypeRepository();
         MealType mealType = mealTypeRepository.getBy(MealType::getKey, meal.getTypeKey());
         this.mealTypeProperty.set(mealType);
 

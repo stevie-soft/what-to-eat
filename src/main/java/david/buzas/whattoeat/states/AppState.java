@@ -4,8 +4,7 @@ package david.buzas.whattoeat.states;
 import david.buzas.whattoeat.repositories.Repository;
 
 public class AppState {
-    public AppConfigState appConfigState;
-    public RepositoriesState repositoriesState;
+    public Repositories repositories;
     public MealsState mealsState;
     public MealConsumptionsState mealConsumptionsState;
     public MealCategoriesState mealCategoriesState;
@@ -14,13 +13,7 @@ public class AppState {
     public MealConsumptionFormState mealConsumptionFormState;
 
     public AppState() {
-        this.appConfigState = new AppConfigState();
-        this.appConfigState.setMealsFilePath("user-meals.json");
-        this.appConfigState.setMealConsumptionsFilePath("user-consumptions.json");
-        this.appConfigState.setMealCategoriesFilePath("meal-categories.json");
-        this.appConfigState.setMealTypesFilePath("meal-types.json");
-
-        this.repositoriesState = new RepositoriesState(this);
+        this.repositories = new Repositories();
         this.mealsState = new MealsState(this);
         this.mealConsumptionsState = new MealConsumptionsState(this);
         this.mealCategoriesState = new MealCategoriesState(this);

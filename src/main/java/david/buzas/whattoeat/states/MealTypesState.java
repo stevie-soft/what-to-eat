@@ -15,7 +15,7 @@ public class MealTypesState extends PartialAppState {
     public MealTypesState(AppState appState) {
         super(appState);
         this.property = new ArrayListProperty<>();
-        this.repository = this.appState.repositoriesState.getMealTypeRepository();
+        this.repository = this.appState.repositories.getMealTypeRepository();
     }
 
     public void refreshAll() throws Repository.OperationException {

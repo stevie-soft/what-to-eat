@@ -97,7 +97,7 @@ public class ConsumptionHistoryPageController {
         Meal meal;
 
         try {
-            meal = this.state.repositoriesState.getMealRepository().getByUuid(mealUuid);
+            meal = this.state.repositories.getMealRepository().getByUuid(mealUuid);
         } catch (Repository.OperationException e) {
             new ErrorAlert(e.getMessage()).showAndWait();
             return;
