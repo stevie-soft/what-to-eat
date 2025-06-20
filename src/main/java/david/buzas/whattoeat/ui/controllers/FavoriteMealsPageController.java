@@ -83,7 +83,7 @@ public class FavoriteMealsPageController extends Controller {
         try {
             this.formState.addNewMeal();
         } catch (Repository.OperationException e) {
-            this.showError(e.getMessage());
+            this.showError(e);
         }
     }
 
@@ -94,7 +94,7 @@ public class FavoriteMealsPageController extends Controller {
         try {
             this.formState.updateSelectedMeal();
         } catch (Repository.OperationException e) {
-            this.showError(e.getMessage());
+            this.showError(e);
         }
     }
 
@@ -114,13 +114,13 @@ public class FavoriteMealsPageController extends Controller {
         try {
             this.formState.removeSelectedMeal();
         } catch (Repository.OperationException e) {
-            this.showError(e.getMessage());
+            this.showError(e);
         }
     }
 
     private void validateForm() {
         if (this.formState.isInvalid()) {
-            this.showError("Hibás form! Tölts ki minden mezőt!");
+            this.showErrorMessage("Hibás form! Tölts ki minden mezőt!");
             throw new RuntimeException("invalid form");
         }
     }

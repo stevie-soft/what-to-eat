@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.WhatToEatPageController">
+<HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.GenerateMealPageController">
    <children>
       <VBox prefHeight="429.0" prefWidth="732.0" HBox.hgrow="ALWAYS">
          <padding>

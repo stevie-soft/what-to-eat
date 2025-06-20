@@ -1,10 +1,6 @@
 package david.buzas.whattoeat;
 
-import david.buzas.whattoeat.entities.Meal;
-import david.buzas.whattoeat.entities.MealCategory;
-import david.buzas.whattoeat.entities.MealConsumption;
-import david.buzas.whattoeat.entities.MealType;
-import david.buzas.whattoeat.repositories.*;
+import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.AppState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,12 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WhatToEatApplication extends Application {
-    public static Repository<Meal> mealRepository = new MealRepository("user-meals.json");
-    public static Repository<MealConsumption> mealConsumptionRepository = new MealConsumptionRepository("user-consumptions.json");
-    public static Repository<MealCategory> mealCategoryRepository = new MealCategoryRepository("meal-categories.json");
-    public static Repository<MealType> mealTypeRepository = new MealTypeRepository("meal-types.json");
 
-    public static WhatToEatModel model = new WhatToEatModel();
     public static AppState state = new AppState();
 
     @Override

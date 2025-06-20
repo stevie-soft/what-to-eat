@@ -2,38 +2,35 @@ package david.buzas.whattoeat.ui.controllers;
 
 import david.buzas.whattoeat.WhatToEatApplication;
 import david.buzas.whattoeat.entities.Meal;
-import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.AppState;
 import david.buzas.whattoeat.states.MealConsumptionFormState;
-import david.buzas.whattoeat.ui.components.DeleteConfirmationDialog;
-import david.buzas.whattoeat.ui.components.ErrorAlert;
+import david.buzas.whattoeat.ui.components.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public class ConsumptionHistoryPageController {
+public class ConsumptionHistoryPageController extends Controller {
 
     @FXML
-    public ChoiceBox<Meal> mealChoiceBox;
+    public MealChoiceBox mealChoiceBox;
 
     @FXML
     public DatePicker consumptionDatePicker;
 
     @FXML
-    public Button addButton;
+    public AddButton addButton;
 
     @FXML
-    public Button updateButton;
+    public UpdateButton updateButton;
 
     @FXML
-    public Button removeButton;
+    public RemoveButton removeButton;
 
     @FXML
-    public ListView<MealConsumption> consumptionHistoryListView;
+    public MealConsumptionListView consumptionHistoryListView;
 
     AppState state = WhatToEatApplication.state;
     MealConsumptionFormState formState = WhatToEatApplication.state.mealConsumptionFormState;
@@ -56,21 +53,6 @@ public class ConsumptionHistoryPageController {
         this.updateButton.disableProperty().bind(this.formState.editDisabledProperty);
         this.removeButton.disableProperty().bind(this.formState.editDisabledProperty);
 
-        this.applyCustomFieldConfigurations();
-    }
-
-    private void applyCustomFieldConfigurations() {
-        this.mealChoiceBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Meal meal) {
-                return meal != null ? meal.getTitle() : "Válassz ételt...";
-            }
-
-            @Override
-            public Meal fromString(String s) {
-                return null;
-            }
-        });
     }
 
     @FXML
@@ -78,7 +60,7 @@ public class ConsumptionHistoryPageController {
         try {
             this.formState.addNewMealConsumption();
         } catch (Repository.OperationException e) {
-            new ErrorAlert(e.getMessage()).showAndWait();
+            this.showError(e);
         }
     }
 
@@ -87,7 +69,7 @@ public class ConsumptionHistoryPageController {
         try {
             this.formState.updateSelectedMealConsumption();
         } catch (Repository.OperationException e) {
-            new ErrorAlert(e.getMessage()).showAndWait();
+            this.showError(e);
         }
     }
 
@@ -99,7 +81,7 @@ public class ConsumptionHistoryPageController {
         try {
             meal = this.state.repositories.getMealRepository().getByUuid(mealUuid);
         } catch (Repository.OperationException e) {
-            new ErrorAlert(e.getMessage()).showAndWait();
+            this.showError(e);
             return;
         }
 
@@ -118,7 +100,7 @@ public class ConsumptionHistoryPageController {
         try {
             this.formState.removeSelectedMealConsumption();
         } catch (Repository.OperationException e) {
-            new ErrorAlert(e.getMessage()).showAndWait();
+            this.showError(e);
         }
     }
 }
