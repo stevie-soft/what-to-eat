@@ -8,9 +8,9 @@ import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.AppState;
 import david.buzas.whattoeat.states.MealFormState;
 import david.buzas.whattoeat.ui.components.DeleteConfirmationDialog;
+import david.buzas.whattoeat.ui.components.NumberField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
 
 import java.util.Optional;
 
@@ -22,10 +22,10 @@ public class FavoriteMealsPageController extends Controller {
     public TextField mealTitleTextField;
 
     @FXML
-    public TextField mealConsuptionFrequencyDaysTextField;
+    public NumberField mealConsumptionFrequencyDaysTextField;
 
     @FXML
-    public TextField mealAverageCostForintTextField;
+    public NumberField mealAverageCostForintTextField;
 
     @FXML
     public ListView<Meal> favoriteMealsListView;
@@ -68,54 +68,12 @@ public class FavoriteMealsPageController extends Controller {
         this.updateButton.disableProperty().bind(this.formState.editDisabledProperty);
         this.removeButton.disableProperty().bind(this.formState.editDisabledProperty);
 
-        this.mealConsuptionFrequencyDaysTextField.textProperty().bindBidirectional(this.formState.consumptionFrequencyDaysProperty);
+        this.mealConsumptionFrequencyDaysTextField.textProperty().bindBidirectional(this.formState.consumptionFrequencyDaysProperty);
         this.mealAverageCostForintTextField.textProperty().bindBidirectional(this.formState.averageCostForintProperty);
     }
 
     private void applyCustomFieldConfigurations() {
-        this.favoriteMealsListView.setCellFactory(_ -> new ListCell<>() {
-            @Override
-            protected void updateItem(Meal meal, boolean empty) {
-                super.updateItem(meal, empty);
-                this.setText(empty || meal == null ? null : meal.getTitle());
-            }
-        });
 
-        this.mealCategoryChoiceBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(MealCategory mealCategory) {
-                return mealCategory != null ? mealCategory.getDisplayName() : "Válassz kategóriát...";
-            }
-
-            @Override
-            public MealCategory fromString(String s) {
-                return null;
-            }
-        });
-
-        this.mealTypeChoiceBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(MealType mealType) {
-                return mealType != null ? mealType.getDisplayName() : "Válassz típust...";
-            }
-
-            @Override
-            public MealType fromString(String s) {
-                return null;
-            }
-        });
-
-        this.mealConsuptionFrequencyDaysTextField.textProperty().addListener((_, _, newValue) -> {
-            if (newValue != null && !newValue.matches("\\d*")) {
-                mealConsuptionFrequencyDaysTextField.setText(newValue.replaceAll("\\D", ""));
-            }
-        });
-
-        this.mealAverageCostForintTextField.textProperty().addListener((_, _, newValue) -> {
-            if (newValue != null && !newValue.matches("\\d*")) {
-                mealAverageCostForintTextField.setText(newValue.replaceAll("\\D", ""));
-            }
-        });
     }
 
     @FXML
