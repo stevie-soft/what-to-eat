@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Font?>
 <HBox prefHeight="531.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.GenerateMealPageController">
    <children>
       <VBox prefHeight="429.0" prefWidth="732.0" HBox.hgrow="ALWAYS">
@@ -26,7 +27,11 @@
                      <Insets bottom="10.0" top="10.0" />
                   </VBox.margin>
                </Separator>
-               <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerate" text="Új javaslat" />
+               <Button fx:id="generateButton" defaultButton="true" mnemonicParsing="false" onAction="#onGenerate" text="Új javaslat">
+                  <font>
+                     <Font size="14" />
+                  </font>
+               </Button>
             </VBox>
       </VBox>
    </children>
