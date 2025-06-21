@@ -82,8 +82,16 @@ public class GenerateMealState extends PartialAppState {
         this.totalCostForint.set(totalCost);
     }
 
+    private Repository<Meal> getMealRepository() {
+        return this.appState.repositories.getMealRepository();
+    }
+
+    private Repository<MealConsumption> getMealConsumptionRepository() {
+        return this.appState.repositories.getMealConsumptionRepository();
+    }
+
     private List<Meal> getValidMeals() throws Repository.OperationException {
-        List<Meal> meals = this.mealRepository.getAll();
+        List<Meal> meals = this.getMealRepository().getAll();
         return meals.stream().filter(this::isMealValid).toList();
     }
 
@@ -93,7 +101,7 @@ public class GenerateMealState extends PartialAppState {
         List<MealConsumption> consumptions;
 
         try {
-            consumptions = this.mealConsumptionRepository.findManyBy(
+            consumptions = this.getMealConsumptionRepository().findManyBy(
                     MealConsumption::getMealUuid,
                     meal.getUuid()
             );
