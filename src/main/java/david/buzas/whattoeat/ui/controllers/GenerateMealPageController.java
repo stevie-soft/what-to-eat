@@ -36,7 +36,7 @@ public class GenerateMealPageController extends Controller {
         this.mainCourseNameLabel.textProperty().bind(this.state.generateMealState.mainCourseName);
         this.sideDishNameLabel.textProperty().bind(this.state.generateMealState.sideDishName);
         this.extraDishNameLabel.textProperty().bind(this.state.generateMealState.extraDishName);
-        this.totalCostForintLabel.textProperty().bind(this.state.generateMealState.totalCostForint);
+        this.totalCostForintLabel.textProperty().bind(this.state.generateMealState.totalCostForintText);
     }
 
     @FXML
