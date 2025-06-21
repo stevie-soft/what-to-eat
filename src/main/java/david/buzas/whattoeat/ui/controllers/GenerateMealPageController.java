@@ -32,6 +32,8 @@ public class GenerateMealPageController extends Controller {
 
     @FXML
     private void initialize() {
+        this.hideLabels();
+
         this.soupNameLabel.textProperty().bind(this.state.generateMealState.soupName);
         this.mainCourseNameLabel.textProperty().bind(this.state.generateMealState.mainCourseName);
         this.sideDishNameLabel.textProperty().bind(this.state.generateMealState.sideDishName);
@@ -40,11 +42,29 @@ public class GenerateMealPageController extends Controller {
     }
 
     @FXML
-    public void onGenerate() {
+    private void onGenerate() {
+        this.showLabels();
+
         try {
             this.state.generateMealState.generate();
         } catch (Repository.OperationException e) {
             this.showError(e);
         }
+    }
+
+    private void showLabels() {
+        this.setLabelsVisible(true);
+    }
+
+    private void hideLabels() {
+        this.setLabelsVisible(false);
+    }
+
+    private void setLabelsVisible(Boolean yesOrNo) {
+        this.soupNameLabel.setVisible(yesOrNo);
+        this.mainCourseNameLabel.setVisible(yesOrNo);
+        this.sideDishNameLabel.setVisible(yesOrNo);
+        this.extraDishNameLabel.setVisible(yesOrNo);
+        this.totalCostForintLabel.setVisible(yesOrNo);
     }
 }

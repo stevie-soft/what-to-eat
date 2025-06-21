@@ -4,6 +4,7 @@ import david.buzas.whattoeat.entities.Meal;
 import david.buzas.whattoeat.entities.MealConsumption;
 import david.buzas.whattoeat.repositories.Repository;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -36,43 +37,23 @@ public class GenerateMealState extends PartialAppState {
         this.extraDishName = new SimpleStringProperty();
         this.totalCostForintText = new SimpleStringProperty();
 
-        this.soup = new SimpleObjectProperty<>();
-        this.mainCourse = new SimpleObjectProperty<>();
-        this.sideDish = new SimpleObjectProperty<>();
-        this.extraDish = new SimpleObjectProperty<>();
-        this.totalCostForint = new SimpleIntegerProperty();
+        this.soup = new SimpleObjectProperty<>(null);
+        this.mainCourse = new SimpleObjectProperty<>(null);
+        this.sideDish = new SimpleObjectProperty<>(null);
+        this.extraDish = new SimpleObjectProperty<>(null);
+        this.totalCostForint = new SimpleIntegerProperty(0);
 
-        this.soup.addListener((_, _, soup) -> {
-            if (soup != null) {
-                this.soupName.set("Leves: " + soup.getTitle());
-            } else {
-                this.soupName.set("Nincs megfelelő leves.");
-            }
-        });
-        this.mainCourse.addListener((_, _, mainCourse) -> {
-            if (mainCourse != null) {
-                this.mainCourseName.set("Főétel: " + mainCourse.getTitle());
-            } else {
-                this.mainCourseName.set("Nincs megfelelő főétel.");
-            }
-        });
-        this.sideDish.addListener((_, _, sideDish) -> {
-            if (sideDish != null) {
-                this.sideDishName.set("Köret: " + sideDish.getTitle());
-            } else {
-                this.sideDishName.set("Nincs megfelelő köret.");
-            }
-        });
-        this.extraDish.addListener((_, _, extraDish) -> {
-            if (extraDish != null) {
-                this.extraDishName.set("Kiegészítő: " + extraDish.getTitle());
-            } else {
-                this.extraDishName.set("Nincs megfelelő kiegészítő.");
-            }
-        });
-        this.totalCostForint.addListener((_, _, totalCostForint) -> {
-            this.totalCostForintText.set("Összköltség (Ft): " + totalCostForint);
-        });
+        this.soup.addListener(this.onSoupChange());
+        this.mainCourse.addListener(this.onMainCourseChange());
+        this.sideDish.addListener(this.onSideDishChange());
+        this.extraDish.addListener(this.onExtraDishChange());
+        this.totalCostForint.addListener(this.onTotalCostChange());
+
+        this.applySoup(null);
+        this.applyMainCourse(null);
+        this.applySideDish(null);
+        this.applyExtraDish(null);
+        this.applyTotalCost(0);
     }
 
     public void generate() throws Repository.OperationException {
@@ -148,5 +129,71 @@ public class GenerateMealState extends PartialAppState {
         Random random = new Random();
         int mealIndex = random.nextInt(meals.size());
         return meals.get(mealIndex);
+    }
+
+    private void applySoup(Meal soup) {
+        if (soup == null) {
+            this.soupName.set("Nincs megfelelő leves.");
+        } else {
+            this.soupName.set("Leves: " + soup.getTitle());
+        }
+    }
+
+    private void applyMainCourse(Meal mainCourse) {
+        if (mainCourse == null) {
+            this.mainCourseName.set("Nincs megfelelő főétel.");
+        } else {
+            this.mainCourseName.set("Főétel: " + mainCourse.getTitle());
+        }
+    }
+
+    private void applySideDish(Meal sideDish) {
+        if (sideDish == null) {
+            this.sideDishName.set("Nincs megfelelő köret.");
+        } else {
+            this.sideDishName.set("Köret: " + sideDish.getTitle());
+        }
+    }
+
+    private void applyExtraDish(Meal extraDish) {
+        if (extraDish == null) {
+            this.extraDishName.set("Nincs megfelelő kiegészítő.");
+        } else {
+            this.extraDishName.set("Kiegészítő: " + extraDish.getTitle());
+        }
+    }
+
+    private void applyTotalCost(Number totalCost) {
+        this.totalCostForintText.set("Összköltség (Ft): " + totalCost);
+    }
+
+    private ChangeListener<Meal> onSoupChange() {
+        return (_, _, soup) -> {
+           this.applySoup(soup);
+        };
+    }
+
+    private ChangeListener<Meal> onMainCourseChange() {
+        return (_, _, mainCourse) -> {
+            this.applyMainCourse(mainCourse);
+        };
+    }
+
+    private ChangeListener<Meal> onSideDishChange() {
+        return (_, _, sideDish) -> {
+            this.applySideDish(sideDish);
+        };
+    }
+
+    private ChangeListener<Meal> onExtraDishChange() {
+        return (_, _, extraDish) -> {
+            this.applyExtraDish(extraDish);
+        };
+    }
+
+    private ChangeListener<Number> onTotalCostChange() {
+        return (_, _, totalCostForint) -> {
+            this.applyTotalCost(totalCostForint);
+        };
     }
 }
