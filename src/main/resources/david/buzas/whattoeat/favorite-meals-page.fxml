@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import david.buzas.whattoeat.ui.components.MealCategoryChoiceBox?>
+<?import david.buzas.whattoeat.ui.components.NumberField?>
+<?import david.buzas.whattoeat.ui.components.MealsListView?>
+<?import david.buzas.whattoeat.ui.components.MealTypeChoiceBox?>
+<?import david.buzas.whattoeat.ui.components.AddButton?>
+<?import david.buzas.whattoeat.ui.components.UpdateButton?>
+<?import david.buzas.whattoeat.ui.components.RemoveButton?>
+<HBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="david.buzas.whattoeat.ui.controllers.FavoriteMealsPageController">
+   <children>
+      <MealsListView fx:id="favoriteMealsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="420.0" prefWidth="250.0" />
+      <VBox prefHeight="429.0" prefWidth="732.0" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <HBox prefHeight="50.0" prefWidth="631.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="300.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Étel neve" />
+                        <TextField fx:id="mealTitleTextField" prefHeight="25.0" prefWidth="214.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="200.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <children>
+                  <VBox prefHeight="90.0" prefWidth="300.0">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Étel kategóriája" />
+                        <MealCategoryChoiceBox fx:id="mealCategoryChoiceBox" prefHeight="25.0" prefWidth="333.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="50.0" prefWidth="300.0">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Étel típusa" />
+                        <MealTypeChoiceBox fx:id="mealTypeChoiceBox" prefHeight="25.0" prefWidth="318.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="631.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <children>
+                  <VBox prefHeight="90.0" prefWidth="300.0">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Étel fogyasztási gyakorisága (X naponta)" />
+                        <NumberField fx:id="mealConsumptionFrequencyDaysTextField" prefHeight="25.0" prefWidth="214.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Étel átlagos költsége (X Ft)" />
+                        <NumberField fx:id="mealAverageCostForintTextField" prefHeight="25.0" prefWidth="214.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Separator>
+            <HBox prefHeight="23.0" prefWidth="631.0">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="286.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <AddButton fx:id="addButton" mnemonicParsing="false" onAction="#onAddMeal" >
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </AddButton>
+                        <UpdateButton fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateMeal">
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </UpdateButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" prefHeight="25.0" prefWidth="294.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <RemoveButton fx:id="removeButton" mnemonicParsing="false" onAction="#onRemoveMeal" >
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RemoveButton>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

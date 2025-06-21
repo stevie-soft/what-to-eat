@@ -1,0 +1,22 @@
+[
+  {
+    "uuid": "4b7d6394-355b-473c-81b5-5f1007d2ab3d",
+    "key": "soup",
+    "displayName": "Leves"
+  },
+  {
+    "uuid": "9aa17bf5-f196-44ff-9d12-772072554ad6",
+    "key": "main-course",
+    "displayName": "Főétel"
+  },
+  {
+    "uuid": "069d2455-a28e-4eb4-b12d-f7df678ef4d5",
+    "key": "side-dish",
+    "displayName": "Köret"
+  },
+  {
+    "uuid": "d4bb8073-d8fc-4042-8bef-9952cb086f91",
+    "key": "other",
+    "displayName": "Egyéb (szósz, kompót, stb.)"
+  }
+]

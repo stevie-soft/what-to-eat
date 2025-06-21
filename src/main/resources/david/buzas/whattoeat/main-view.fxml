@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootContainer" alignment="CENTER" prefHeight="500.0" prefWidth="901.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+      <TabPane prefHeight="621.0" prefWidth="1004.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+          <Tab text="Mit egyek ma?">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="804.0">
+            <children>
+               <VBox layoutX="145.0" layoutY="36.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               <fx:include source="generate-meal-page.fxml" />
+            </children></AnchorPane>
+          </Tab>
+            <Tab text="Elfogyasztott ételek">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+               <VBox layoutX="202.0" layoutY="54.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               <fx:include source="consumption-history-page.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children></AnchorPane>
+            </Tab>
+          <Tab text="Kedvelt ételek">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+               <VBox layoutX="183.0" layoutY="36.0" prefHeight="471.0" prefWidth="895.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               <fx:include source="favorite-meals-page.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+                     </AnchorPane>
+          </Tab>
+      </TabPane>
+</VBox>
