@@ -68,6 +68,7 @@ public class GenerateMealState extends PartialAppState {
         Meal generatedMainCourse = this.extractRandomMeal(validMainCourses);
         Meal generatedSideDish = this.extractRandomMeal(validSideDishes);
         Meal generatedExtraDish = this.extractRandomMeal(validExtraDishes);
+
         this.soup.set(generatedSoup);
         this.mainCourse.set(generatedMainCourse);
         this.sideDish.set(generatedSideDish);

@@ -1,9 +1,6 @@
 package david.buzas.whattoeat.ui.controllers;
 
 import david.buzas.whattoeat.WhatToEatApplication;
-import david.buzas.whattoeat.entities.Meal;
-import david.buzas.whattoeat.entities.MealCategory;
-import david.buzas.whattoeat.entities.MealType;
 import david.buzas.whattoeat.repositories.Repository;
 import david.buzas.whattoeat.states.AppState;
 import david.buzas.whattoeat.states.MealFormState;
@@ -46,8 +43,6 @@ public class FavoriteMealsPageController extends Controller {
 
     @FXML
     private void initialize() {
-        this.applyCustomFieldConfigurations();
-
         this.favoriteMealsListView.itemsProperty().bind(this.state.mealsState.property);
         this.favoriteMealsListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
                 this.formState.selectedMealProperty.set(newValue)
@@ -69,10 +64,6 @@ public class FavoriteMealsPageController extends Controller {
 
         this.mealConsumptionFrequencyDaysTextField.textProperty().bindBidirectional(this.formState.consumptionFrequencyDaysProperty);
         this.mealAverageCostForintTextField.textProperty().bindBidirectional(this.formState.averageCostForintProperty);
-    }
-
-    private void applyCustomFieldConfigurations() {
-
     }
 
     @FXML
